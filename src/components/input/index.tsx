@@ -53,7 +53,7 @@ const Input: React.FC<Props> = (props: Props) => {
           props?.onChange?.(e?.target?.value || '');
         }}
         required={required}
-        autoComplete="off"
+        autoComplete="password"
         disabled={disabled}
       ></input>
     </div>
