@@ -1,5 +1,5 @@
 import React from 'react'
-import { Logout, UserCircle, Bell } from 'heroicons-react';
+import { UserCircle, Bell } from 'heroicons-react';
 
 
 const Topbar = () => {

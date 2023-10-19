@@ -1,5 +1,4 @@
 import React from 'react'
-import Menu from '../menu';
 import { Home, Cog, OfficeBuilding } from 'heroicons-react';
 import Logo from '../../assets/whiteLogo.png'
 import { Link } from 'react-router-dom';
@@ -9,7 +8,6 @@ const Sidebar = () => {
 
   return (
     <nav className="h-screen bg-primary">
-        {/* <Menu /> */}
         <img src={Logo} alt="Logo"/>
           <div className='flex flex-col justify-between h-[88%] px-4 py-6'>
           <div className="flex flex-col gap-6 text-white/90 font-sans bg-secondary/20 p-4 rounded-lg">
