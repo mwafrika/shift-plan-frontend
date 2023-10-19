@@ -33,7 +33,7 @@ const Button: React.FC<Props> = (props: Props) => {
   if (isSubmit)
     return (
       <div
-        className={`${width} ${height} ${centerStyle} bg-primary50 rounded-[10px]`}
+        className={`${width} ${height} ${centerStyle} bg-primary50 rounded-[10px] mt-2`}
       >
         <div
           className={`flex flex-row content-center justify-around ${!isLoading ? 'w-full' : ''}`}
@@ -55,7 +55,7 @@ const Button: React.FC<Props> = (props: Props) => {
 
   return (
     <button
-      className={`${centerStyle} flex-row m-auto transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 bg-primary50  rounded-[15px] ${width} ${height}`}
+      className={`${centerStyle} flex-row m-auto transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 mt-2  rounded-[15px] ${width} ${height}`}
       onClick={onClick}
     >
       {label}
