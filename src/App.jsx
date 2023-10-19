@@ -8,12 +8,14 @@ import Layout from "./components/layout";
 const App = () => {
   return (
     <div className="w-full h-screen	flex justify-between flex-row sm:flex-col">
-      <Layout>
+      {/* <Layout>
         {role === "superAdmin" && <SuperAdminRoutes />}
         {role === "admin" && <AdminRoutes />}
         {role === "manager" && <ManagerRoutes />}
         {role === "employee" && <EmployeeRoutes />}
-      </Layout>
+      </Layout> */}
+
+      <AdminRoutes />
     </div>
   );
 };

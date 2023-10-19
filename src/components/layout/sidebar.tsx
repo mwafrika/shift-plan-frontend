@@ -1,29 +1,32 @@
 import React from 'react'
 import Menu from '../menu';
-import { Logout } from 'heroicons-react';
-import { Router } from 'react-router-dom';
+import { Home, Cog, OfficeBuilding } from 'heroicons-react';
+import Logo from '../../assets/whiteLogo.png'
+import { Link } from 'react-router-dom';
+
 
 const Sidebar = () => {
 
-    const logout = () => {
-        return (
-            <h2>You've been logged out</h2>
-        )
-    }
   return (
-    <nav className="md:h-full z-50 sm:mt-[20px] mb-10 bg-primary-200 sm:bg-white flex flex-row h-[48px]">
-      <div className="bg-primary-900 sm:bg-white w-[50px]"></div>
-      <div className="flex-grow ml-[-50px] pr-4">
+    <nav className="h-screen bg-primary">
         {/* <Menu /> */}
-      </div>
-
-      <div className="flex md:hidden flex-row justify-between">
-          <Logout
-            width={25}
-            className="cursor-pointer mr-5 mt-[-20px] text-primary-900"
-            onClick={() => logout()}
-          />
-        </div>
+        <img src={Logo} alt="Logo"/>
+          <div className='flex flex-col justify-between h-[88%] px-4 py-6'>
+          <div className="flex flex-col gap-6 text-white/90 font-sans bg-secondary/20 p-4 rounded-lg">
+            <Link to={"/"} className="flex flex-row items-center gap-2">
+              <Home width={20} />
+              <p>Home</p>
+            </Link>
+            <Link to={"/"} className="flex flex-row items-center gap-2">
+              <OfficeBuilding width={22} />
+              <p>Companies</p>
+            </Link>
+            <Link to={"/"} className="flex flex-row items-center gap-2">
+              <Cog width={20} />
+              <p>Settings</p>
+            </Link>
+          </div>
+          </div>
     </nav>
   );
 };

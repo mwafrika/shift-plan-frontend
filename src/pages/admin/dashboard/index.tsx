@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Layout from "../../../components/layout";
 
 const AdminDashboard = () => {
-    return (
-        <h1>Admin dashboard</h1>
-    )
-}
+  return (
+    <Layout>
+      <p className="text-center">Admin dashboard</p>
+    </Layout>
+  );
+};
 
 export default AdminDashboard;
