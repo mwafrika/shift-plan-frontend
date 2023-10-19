@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { LoadingIcon } from '../loader/index';
 
 type Props = {
   label: string;
@@ -40,13 +39,12 @@ const Button: React.FC<Props> = (props: Props) => {
         >
           <input
             type="submit"
-            className={`h-full w-full cursor-pointer font-normal  text-secondary50 font-semibold `}
+            className={`h-full w-full cursor-pointer text-secondary50 font-semibold `}
             value={label}
             disabled={isLoading}
           />
           {isLoading && (
             <div className="w-[30px] my-auto ml-2">
-              <LoadingIcon backgroundColor="white" height={24} />
             </div>
           )}
         </div>
@@ -61,7 +59,6 @@ const Button: React.FC<Props> = (props: Props) => {
       {label}
       {isLoading && (
         <div className="w-[30px] my-auto ml-2">
-          <LoadingIcon backgroundColor="white" height={20} />
           <label>...</label>
         </div>
       )}
