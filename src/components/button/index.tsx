@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { LoadingIcon } from '../loader/index';
+// import { LoadingIcon } from '../loader/index';
 
 type Props = {
   label: string;
@@ -46,7 +46,7 @@ const Button: React.FC<Props> = (props: Props) => {
           />
           {isLoading && (
             <div className="w-[30px] my-auto ml-2">
-              <LoadingIcon backgroundColor="white" height={24} />
+              {/* <LoadingIcon backgroundColor="white" height={24} /> */}
             </div>
           )}
         </div>
@@ -61,7 +61,7 @@ const Button: React.FC<Props> = (props: Props) => {
       {label}
       {isLoading && (
         <div className="w-[30px] my-auto ml-2">
-          <LoadingIcon backgroundColor="white" height={20} />
+          {/* <LoadingIcon backgroundColor="white" height={20} /> */}
           <label>...</label>
         </div>
       )}
