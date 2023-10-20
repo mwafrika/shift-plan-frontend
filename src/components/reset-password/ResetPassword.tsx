@@ -39,7 +39,7 @@ function ResetPassword({ switchToConfirmPage }) {
                     validator={{required: true, pattern: /^\S+@\S+$/i  }}
                     type='email'
                     />
-                    {errors.email && <p> Enter your email address</p>}
+                    {errors.email && <p className='text-center decoration-red-500'> Please enter your email address! </p>}
 
                     <div className=''>
                     <Button width='text-white py-[0.7rem] w-full bg-[#032D7C]'
