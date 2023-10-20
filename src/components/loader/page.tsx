@@ -11,7 +11,7 @@ export const Loading: React.FC<PropTypes> = () => {
   return (
     <div className="absolute w-full h-full flex justify-center">
       <div className=" flex justify-center flex-col items-center">
-      <p>Chargement ...</p>
+      <p>Loading ...</p>
       </div>
     </div>
   );
@@ -23,7 +23,7 @@ export const ErrorLoading: React.FC<PropTypes> = (props) => {
       <div className=" flex justify-center flex-col items-center">
         <div>
           <p className="text-center max-w-[400px] text-lg text-[#6B6E75] mt-8">
-            Une erreur s'est produite
+            An error occurred
           </p>
           <Button
             label="Reesayer"
