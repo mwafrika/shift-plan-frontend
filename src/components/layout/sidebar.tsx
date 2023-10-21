@@ -15,11 +15,11 @@ const Sidebar = () => {
               <Home width={20} />
               <p>Home</p>
             </Link>
-            <Link to={"/"} className="flex flex-row items-center gap-2">
+            <Link to={"/companies"} className="flex flex-row items-center gap-2">
               <OfficeBuilding width={22} />
               <p>Companies</p>
             </Link>
-            <Link to={"/"} className="flex flex-row items-center gap-2">
+            <Link to={"/settings"} className="flex flex-row items-center gap-2">
               <Cog width={20} />
               <p>Settings</p>
             </Link>
