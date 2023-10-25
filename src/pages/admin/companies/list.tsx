@@ -2,57 +2,57 @@ import React from "react"
 import Pagination from "../../../components/pagination"
 import Checkbox from "../../../components/checkbox";
 import { RiEditBoxFill } from "react-icons/ri"
-import EditEmployeeForm from "./editEmployee";
-import Dialog from "../../../components/dialog";
 import Delete from "../../../components/delete";
+import Dialog from "../../../components/dialog";
+import EditCompanyForm from "./editCompany";
 
-const employees = [
+const departments = [
   {
     id: 1,
-    fullname: "Okolongo",
-    email: "okolongo@gmail.com",
-    department: "Gynecology",
-    role: "Manager"
+    name: "Code of Africa",
+    email: "coa@gmail.com",
+    start_date: "01/12/2023",
+    status: "Approve"    
   },
   {
     id: 2,
-    fullname: "Okolongo",
-    email: "okolongo@gmail.com",
-    department: "Gynecology",
-    role: "Manager"
+    name: "Code of Africa",
+    email: "coa@gmail.com",
+    start_date: "01/12/2023",
+    status: "Approve"    
   },
   {
     id: 3,
-    fullname: "Okolongo",
-    email: "okolongo@gmail.com",
-    department: "Gynecology",
-    role: "Manager"
+    name: "Code of Africa",
+    email: "coa@gmail.com",
+    start_date: "01/12/2023",
+    status: "Approve"     
   },
   {
     id: 4,
-    fullname: "Okolongo",
-    email: "okolongo@gmail.com",
-    department: "Gynecology",
-    role: "Manager"
+    name: "Code of Africa",
+    email: "coa@gmail.com",
+    start_date: "01/12/2023",
+    status: "Approve"    
   },
   {
     id: 5,
-    fullname: "Okolongo",
-    email: "okolongo@gmail.com",
-    department: "Gynecology",
-    role: "Manager"
+    name: "Code of Africa",
+    email: "coa@gmail.com",
+    start_date: "01/12/2023",
+    status: "Approve"   
   }
 ]
 
-const EmployeesList = () => {
+const CompanyList = () => {
 
   const [showForm, setShowForm] = React.useState(false);
 
     return (
         <div className="flex flex-col items-center justify-center mt-4">
           {showForm && (
-            <Dialog title="Edit employee" width="w-[30%]">
-              <EditEmployeeForm />
+            <Dialog title="Edit company" width="w-[30%]">
+              <EditCompanyForm />
             </Dialog>
            )}
             <table className="table p-5 overflow-auto md:overflow-visible md:table-fixed md:w-full sm:hidden">
@@ -62,16 +62,16 @@ const EmployeesList = () => {
               <Checkbox name={""} />
             </th>
             <th className=" text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200 w-[25%]">
-              Fullname
+              name
             </th>
             <th className=" text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200 w-[25%]">
-              Email address
+              Email
             </th>
-            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200 w-[25%]">
-              Department
+            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200 w-[20%]">
+              Start date
             </th>
-            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200">
-              Role
+            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200 w-[15%]">
+              Status
             </th>
             <th className="text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200">
               Action
@@ -80,22 +80,22 @@ const EmployeesList = () => {
         </thead>
 
         <tbody>
-        {employees.map((emp) => (
+        {departments.map((emp) => (
     <tr key={emp.id} className="bg-white">
       <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        <Checkbox name={emp.fullname} />
+        <Checkbox name={emp.name} />
       </td>
       <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.fullname}
+        {emp.name}
       </td>
       <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
         {emp.email}
       </td>
       <td className="font-normal text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.department}
+        {emp.start_date}
       </td>
-      <td className="font-normal text-[14px] text-left text-secondary pl-5 py-2 overflow-x-hidden">
-        {emp.role}
+      <td className="font-normal text-[14px] text-left pl-5 py-2 overflow-x-hidden">
+        {emp.status}
       </td>
       <td className="font-normal text-[14px] text-left pl-5 py-2 flex flex-row items-center">
         <RiEditBoxFill
@@ -104,12 +104,12 @@ const EmployeesList = () => {
           style={{ marginRight: 15, cursor: 'pointer' }}
           className="text-secondary"
           onClick={() => {
-            setShowForm(true);
+            setShowForm(true)
           }}
         />
         <Delete 
-        title="Delete Employee"
-        description="Are you sure you want to delete this employee ?"
+        title="Delete your company"
+        description="Are you sure you want to remove your company from the platform ?"
         id={""} 
         />
       </td>
@@ -122,4 +122,4 @@ const EmployeesList = () => {
     )
 }
 
-export default EmployeesList;
+export default CompanyList;

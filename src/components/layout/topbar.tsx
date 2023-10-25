@@ -2,21 +2,21 @@ import React from 'react'
 import { UserCircle, Bell } from 'heroicons-react';
 
 
-const Topbar = () => {
+const Topbar = ({user, name}) => {
   return (
-    <nav className="bg-background h-[11%] border-[1px] border-secondary/40 py-2 px-6">
+    <nav className="bg-background h-[10%] border-[1px] border-secondary/40 py-2 px-6">
           <div className='flex flex-row justify-between items-center'>
             <div className='flex flex-row items-center justify-center gap-2'>
                <UserCircle size={36} className="cursor-pointer text-primary"/>
                 <div className="gap-1">
-                  <h4 className="text-[14px] text-primary font-bold font-sans">Real Okolongo</h4>
-                  <p className="text-[11px] text-primary">Super admin</p>
+                  <h4 className="text-[12px] text-primary font-bold font-sans">{user}</h4>
+                  <p className="text-[10px] text-primary">{name}</p>
                 </div>
             </div>
 
       <div>
           <Bell
-            width={25}
+            width={24}
             className="cursor-pointer text-primary"
           />
         </div>

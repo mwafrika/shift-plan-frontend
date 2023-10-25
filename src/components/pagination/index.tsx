@@ -20,7 +20,7 @@ const Pagination: React.FC<PropTypes> = (props) => {
     <ReactPaginate
       breakLabel="..."
       nextLabel={
-        <div className="p-2 bg-secondary rounded-[5px]">
+        <div className="p-1 bg-secondary rounded-[5px]">
           <FaChevronRight className="text-white text-sm" />
         </div>
       }
@@ -28,13 +28,13 @@ const Pagination: React.FC<PropTypes> = (props) => {
       pageRangeDisplayed={1}
       pageCount={pagesCount}
       previousLabel={
-        <div className="p-2 bg-secondary rounded-[5px]">
+        <div className="p-1 bg-secondary rounded-[5px]">
           <FaChevronLeft className="text-white text-sm" />
         </div>
       }
-      containerClassName="overflow-x-scroll flex flex-row my-4 md:my-10 gap-5 align-center items-center"
-      activeClassName="border border-primary text-primary p-1 text-sm rounded-[5px]"
-      pageClassName="w-[30px] text-primary text-center p-1 rounded-[5px]"
+      containerClassName="flex flex-row mt-6 gap-5 align-center items-center"
+      activeClassName="border border-primary text-primary text-sm rounded-[5px]"
+      pageClassName="w-[30px] text-primary text-center rounded-[5px]"
     />
   );
 };
