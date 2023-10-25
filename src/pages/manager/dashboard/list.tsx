@@ -2,9 +2,9 @@ import React from "react"
 import Pagination from "../../../components/pagination"
 import Checkbox from "../../../components/checkbox";
 import { RiEditBoxFill } from "react-icons/ri"
-import Delete from "../../../components/delete";
 import Dialog from "../../../components/dialog";
-import EditEmployeeForm from "./editEmployee";
+import EditEmployeeForm from "../../admin/dashboard/editEmployee";
+import Delete from "../../../components/delete"
 
 const employees = [
   {
@@ -12,35 +12,35 @@ const employees = [
     fullname: "Okolongo",
     email: "okolongo@gmail.com",
     department: "Gynecology",
-    role: "Manager"
+    shift: "View"
   },
   {
     id: 2,
     fullname: "Okolongo",
     email: "okolongo@gmail.com",
     department: "Gynecology",
-    role: "Manager"
+    shift: "View"
   },
   {
     id: 3,
     fullname: "Okolongo",
     email: "okolongo@gmail.com",
     department: "Gynecology",
-    role: "Manager"
+    shift: "View"
   },
   {
     id: 4,
     fullname: "Okolongo",
     email: "okolongo@gmail.com",
     department: "Gynecology",
-    role: "Manager"
+    shift: "View"
   },
   {
     id: 5,
     fullname: "Okolongo",
     email: "okolongo@gmail.com",
     department: "Gynecology",
-    role: "Manager"
+    shift: "View"
   }
 ]
 
@@ -67,11 +67,8 @@ const EmployeesList = () => {
             <th className=" text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200 w-[25%]">
               Email address
             </th>
-            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200 w-[25%]">
-              Department
-            </th>
             <th className="text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200">
-              Role
+              Shift
             </th>
             <th className="text-[14px] text-blue font-semibold text-left pl-5 py-2 bg-primary-200">
               Action
@@ -91,11 +88,8 @@ const EmployeesList = () => {
       <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
         {emp.email}
       </td>
-      <td className="font-normal text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.department}
-      </td>
       <td className="font-normal text-[14px] text-left text-secondary pl-5 py-2 overflow-x-hidden">
-        {emp.role}
+        <a href="/">{emp.shift}</a>
       </td>
       <td className="font-normal text-[14px] text-left pl-5 py-2 flex flex-row items-center">
         <RiEditBoxFill

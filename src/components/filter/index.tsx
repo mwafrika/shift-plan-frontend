@@ -5,7 +5,7 @@ type Props = {
   label1: string;
   label2: string;
   label3: string;
-  label4: string;
+  label4?: string;
   total: number;
 };
 

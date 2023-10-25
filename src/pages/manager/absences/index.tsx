@@ -9,34 +9,15 @@ import Button from "../../../components/button";
 import Dialog from "../../../components/dialog";
 import AddEmployeeForm from "../../admin/dashboard/addEmployee";
 
-const ManagerDashboard = () => {
-
-  const [showForm, setShowForm] = React.useState(false);
+const AbsencePage = () => {
 
   return (
     <Layout user={"Admin"} username={"Admin Okolongo"}>
-      {showForm && (
-        <Dialog title="Create employee" width="w-[30%]">
-          <AddEmployeeForm />
-        </Dialog>
-      )}
       <div className="bg-background p-4">
-        <Header title={"Employees"} />
-        <div className="flex flex-row items-center gap-8">
-          <Card title={"Employees"} total={"30"} icon={<FaUsers size={20}/>} />
-        </div>
+        <Header title={"Absences requests"} />
         <div className="flex flex-row items-center justify-between">
-             <div className="w-[71%]">
+             <div className="w-[71%] my-4">
                <Filter label1={"All"} label2={"Employees"} label3={"Shifts"} total={0} />
-             </div>
-             <div>
-               <Button 
-                  label="Add Employee" 
-                  width="bg-secondary text-white py-2 px-8 shadow-lg"
-                  onClick={() => {
-                    setShowForm(true);
-                  }}
-                />
              </div>
           </div>
         <EmployeesList />
@@ -45,4 +26,4 @@ const ManagerDashboard = () => {
   );
 };
 
-export default ManagerDashboard;
+export default AbsencePage;
