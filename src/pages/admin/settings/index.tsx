@@ -39,7 +39,7 @@ const SettingPage = () => {
                       <h1 className=' text-secondary text-lg font-bold'>PROFILE</h1>
                       <Button 
                         label="Edit"
-                        width="w-[100px] h-[25px] bg-secondary text-white rounded-[5px] ml-1"
+                        width="w-[100px] h-[25px] bg-secondary text-white rounded-[5px] mr-1"
                         onClick={() => {
                             setShowForm(true)
                           }}
