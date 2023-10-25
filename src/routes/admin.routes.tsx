@@ -4,12 +4,19 @@ import { Home, Cog, OfficeBuilding } from 'heroicons-react';
 import AdminDashboard from '../pages/admin/dashboard';
 import DepartmentPage from '../pages/admin/departments';
 import SettingPage from '../pages/admin/settings';
+import CompanyPage from '../pages/admin/companies';
 
 export const menusAdmin = [
   {
     value: 'Home',
     link: '/',
     icon: <Home width={22} className="mr-4" />,
+    active: false,
+  },
+  {
+    value: 'Companies',
+    link: '/companies',
+    icon: <OfficeBuilding width={22} className="mr-4" />,
     active: false,
   },
   {
@@ -31,6 +38,7 @@ const AdminRoutes = () => {
     <Routes>
       <Route path="/" element={<AdminDashboard />} />
       <Route path="departments" element={<DepartmentPage />} />
+      <Route path="companies" element={<CompanyPage />} />
       <Route path="settings" element={<SettingPage />} />
       <Route element={<Navigate to="/" />} />
     </Routes>

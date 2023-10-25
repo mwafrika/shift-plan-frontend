@@ -4,6 +4,7 @@ import { Home, Cog, OfficeBuilding } from 'heroicons-react';
 import ManagerDashboard from '../pages/manager/dashboard';
 import ShiftPage from '../pages/manager/shifts';
 import SettingPage from '../pages/manager/settings';
+import AbsencePage from '../pages/manager/absences';
 
 export const menusManager = [
   {
@@ -31,6 +32,7 @@ const ManagerRoutes = () => {
     <Routes>
       <Route path="/" element={<ManagerDashboard />} />
       <Route path="shifts" element={<ShiftPage />} />
+      <Route path="absences" element={<AbsencePage />} />
       <Route path="settings" element={<SettingPage />} />
       <Route element={<Navigate to="/" />} />
     </Routes>
