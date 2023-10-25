@@ -6,17 +6,18 @@
   "scripts": {
     "dev": "vite --port 3001",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint \"{src,test}/**/*.tsx\"",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.7",
-    "axios": "^1.5.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
-    "react-router-dom": "^6.17.0",
-    "react-stepper-horizontal": "^1.0.11"
+    "react-stepper-horizontal": "^1.0.11",
+    "@heroicons/react": "^2.0.18",
+    "heroicons-react": "^1.4.1",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.17.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

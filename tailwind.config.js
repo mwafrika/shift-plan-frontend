@@ -1,16 +1,17 @@
-module.exports = {
+export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     colors: {
       white: '#ffffff',
       black: '#000000',
+      red: '#c70548',
       primary: '#032D7C',
       secondary: '#039BE5',
       background: '#F7F7F7',
       authBackground: '#F8F4F4'
     },
     fontFamily: {
-      sans: ['Poppins', 'sans-serif'],
+      sans: ['poppins', 'sans-serif'],
       serif: ['Poppins', 'serif'],
       mono: ['Poppins', 'monospace'],
       heading: ['Poppins', 'sans-serif'],

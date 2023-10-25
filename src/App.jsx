@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import React from "react";
 import LoginPage from './components/login/LoginPage.tsx'
+import AdminRoutes from "./routes/admin.routes";
 
-function App() {
-
+const App = () => {
   return (
-    <>
+    <div className="w-full h-screen	flex justify-between flex-row sm:flex-col">
+      <AdminRoutes />
       <LoginPage />
-    </>
-  )
-}
 
-export default App
+    </div>
+  );
+};
+
+export default App;
