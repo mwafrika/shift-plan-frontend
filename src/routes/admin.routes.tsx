@@ -36,7 +36,7 @@ export const menusAdmin = [
 const AdminRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<AdminDashboard />} />
+      <Route path="/" index element={<AdminDashboard />} />
       <Route path="departments" element={<DepartmentPage />} />
       <Route path="companies" element={<CompanyPage />} />
       <Route path="settings" element={<SettingPage />} />

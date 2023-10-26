@@ -1,13 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
-import onboarding from "../../assets/onboarding.png";
 
 const Onboarding = () => {
   return (
     <div className="bg-authBackground flex flex-row h-screen">
       <div className="w-[50%] flex flex-col gap-2 p-2 bg-authBackground">
-        <img src={logo} alt="Logo" width={200} height={200} />
+        <img src="/logo.png" alt="Logo" width={200} height={200} />
         <div className="flex flex-col items-center justify-center h-[80%] w-[80%] m-auto">
           <h2 className="text-2xl font-semibold text-center">
             Welcome to Shift Plan – Simplify Employee Management
@@ -17,7 +15,12 @@ const Onboarding = () => {
             employee management? Shift Plan is here to help you streamline your
             operations and boost productivity.
           </p>
-          <Link to={"/signup"} className="text-white bg-primary py-2 px-16 rounded-2xl font-sans mt-8">Get started</Link>
+          <Link
+            to={"/signup"}
+            className="text-white bg-primary py-2 px-16 rounded-2xl font-sans mt-8"
+          >
+            Get started
+          </Link>
         </div>
       </div>
 
@@ -25,7 +28,7 @@ const Onboarding = () => {
 
       <div className="bg-primary w-[50%] h-screen">
         <img
-          src={onboarding}
+          src="/onboarding.png"
           alt="signup"
           width={350}
           height={350}

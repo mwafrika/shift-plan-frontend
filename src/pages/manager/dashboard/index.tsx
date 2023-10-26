@@ -1,5 +1,4 @@
 import React from "react";
-import Layout from "../../../components/layout";
 import Card from "../../../components/card";
 import {FaUserTie, FaUsers} from "react-icons/fa"
 import Header from "../../../components/header";
@@ -8,6 +7,7 @@ import EmployeesList from "./list";
 import Button from "../../../components/button";
 import Dialog from "../../../components/dialog";
 import AddEmployeeForm from "../../admin/dashboard/addEmployee";
+import Layout from "../../../layout";
 
 const ManagerDashboard = () => {
 

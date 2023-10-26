@@ -22,7 +22,7 @@ export const menusEmployee = [
 const EmployeeRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<ShiftPage />} />
+      <Route path="/" index element={<ShiftPage />} />
       <Route path="settings" element={<SettingPage />} />
       <Route element={<Navigate to="/" />} />
     </Routes>

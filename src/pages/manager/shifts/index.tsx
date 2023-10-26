@@ -1,7 +1,7 @@
 import React from 'react'
-import Layout from '../../../components/layout';
 import Button from '../../../components/button';
 import ShiftList from './list';
+import Layout from '../../../layout';
 const ShiftPage = () => {
     return (
         <Layout user={"Manager"} username={"Manager Okolongo"}>
