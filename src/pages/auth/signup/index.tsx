@@ -3,25 +3,24 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../../../components/input";
 import Button from "../../../components/button";
 import Stepper from "react-stepper-horizontal";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { SignupData } from "./type";
 import validators from "./validators";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../redux/actions/auth";
 
 const Signup: React.FC = () => {
+  const formMethods = useForm<SignupData>();
   const {
-    register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<SignupData>();
+  } = formMethods;
 
   const [activeStep, setActiveStep] = useState(0);
   const steps = [{ title: "Personal info" }, { title: "Company info" }];
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { loading, error } = useSelector((state) => state.auth);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -32,60 +31,103 @@ const Signup: React.FC = () => {
   };
 
   const submit: SubmitHandler<SignupData> = (data) => {
-    dispatch(signup(data, navigate) as any);
-    reset();
+    dispatch(signup(data, navigate, reset) as any);
   };
+
+  const name = useWatch({
+    control: formMethods.control,
+    name: "name",
+    defaultValue: "",
+  });
+
+  const email = useWatch({
+    control: formMethods.control,
+    name: "email",
+    defaultValue: "",
+  });
+
+  const password = useWatch({
+    control: formMethods.control,
+    name: "password",
+    defaultValue: "",
+  });
+
+  const companyName = useWatch({
+    control: formMethods.control,
+    name: "companyName",
+    defaultValue: "",
+  });
+
+  const companyEmail = useWatch({
+    control: formMethods.control,
+    name: "companyEmail",
+    defaultValue: "",
+  });
+
+  const companyAddress = useWatch({
+    control: formMethods.control,
+    name: "companyAddress",
+    defaultValue: "",
+  });
+
   const renderStepContent = () => {
     switch (activeStep) {
       case 0:
         return (
-          <div>
-            <Input
+          <div className="flex flex-col gap-5 w-[100%] mb-4">
+            <input
               type="text"
-              name="name"
-              register={register}
-              validator={validators["name"]}
               placeholder="Full name"
+              {...formMethods.register("name", { required: true })}
+              value={name}
+              className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
+              autoComplete="off"
             />
-            <Input
+            <input
               type="email"
-              name="email"
-              register={register}
-              validator={validators["email"]}
               placeholder="Email"
+              {...formMethods.register("email", { required: true })}
+              value={email}
+              className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
+              autoComplete="off"
             />
-            <Input
+            <input
               type="password"
-              name="password"
-              register={register}
-              validator={validators["password"]}
               placeholder="Password"
+              {...formMethods.register("password", { required: true })}
+              value={password}
+              className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
+              autoComplete="off"
             />
           </div>
         );
       case 1:
         return (
-          <div>
-            <Input
+          <div className="flex flex-col gap-5 w-[100%] mb-4">
+            <input
               type="text"
-              name="companyName"
-              register={register}
-              validator={validators["companyName"]}
-              placeholder="company Name"
+              placeholder="Company name"
+              {...formMethods.register("companyName", { required: true })}
+              value={companyName}
+              className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
+              autoComplete="off"
             />
-            <Input
+            <input
               type="email"
-              name="companyEmail"
-              register={register}
-              validator={validators["companyEmail"]}
-              placeholder="company Email"
+              placeholder="Company email"
+              {...formMethods.register("companyEmail", { required: true })}
+              value={companyEmail}
+              // onChange={formMethods.register("companyEmail")}
+              className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
+              autoComplete="off"
             />
-            <Input
+            <input
               type="text"
-              name="companyAddress"
-              register={register}
-              validator={validators["companyAddress"]}
-              placeholder="Company Address"
+              placeholder="Company address"
+              {...formMethods.register("companyAddress", { required: true })}
+              value={companyAddress}
+              className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white border-primary/20 shadow-md border"
+              autoComplete="off"
             />
           </div>
         );
@@ -100,7 +142,7 @@ const Signup: React.FC = () => {
         <img src="/logo.png" alt="Logo" width={150} height={150} />
         <div>
           <div className="w-[60%] m-auto">
-            <h2 className="text-md font-bold">Hello !</h2>
+            <h2 className="text-[2rem] font-bold">Hello !</h2>
             <p className="text-sm">Register to get started now ...</p>
           </div>
           <div className="mb-4">
@@ -129,13 +171,13 @@ const Signup: React.FC = () => {
                 <Button
                   label="Next"
                   onClick={handleNext}
-                  width="bg-primary text-white w-[100%] h-[40px]"
+                  width="bg-primary w-[100%] h-[40px] text-white"
                 />
               ) : (
                 <Button
                   label="Create company"
                   isSubmit
-                  width="bg-primary text-white text-md w-[50%] h-[40px]"
+                  width="bg-primary text-white w-[50%] h-[40px] text-white"
                 />
               )}
             </div>

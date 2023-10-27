@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 
 type Props = {
   label: string;
@@ -26,26 +26,30 @@ const Button: React.FC<Props> = (props: Props) => {
     width,
     height,
     isLoading,
-    type = 'primary',
-    centerStyle='justify-center items-center content-center flex text-secondary50'
+    type = "primary",
+    centerStyle = "justify-center items-center content-center flex ",
   } = props;
-  if (isSubmit)
-    return (
-      <div
-        className={`${width} ${height} ${centerStyle} bg-primary50 rounded-[10px] mt-2`}
+  if (isSubmit) {
+  }
+  const containerStyle = `${width} ${height} bg-primary/50 rounded-[10px] mt-2`;
+  const buttonStyle = `h-full w-full cursor-pointer font-normal text-secondary/50`;
+
+  <div className={containerStyle}>
+    <div
+      className={`flex flex-row content-center justify-around ${
+        isLoading ? "" : "w-full"
+      }`}
+    >
+      <button
+        type="submit"
+        className={buttonStyle}
+        value={label}
+        disabled={isLoading}
       >
-        <div
-          className={`flex flex-row content-center justify-around ${!isLoading ? 'w-full' : ''}`}
-        >
-          <input
-            type="submit"
-            className={`h-full w-full cursor-pointer font-normal text-secondary50 font-semibold `}
-            value={label}
-            disabled={isLoading}
-          />
-        </div>
-      </div>
-    );
+        {label}
+      </button>
+    </div>
+  </div>;
 
   return (
     <button

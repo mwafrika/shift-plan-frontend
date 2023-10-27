@@ -6,12 +6,16 @@ import store from "./redux/store.ts";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { StrictMode } from "react";
+import "@fontsource/poppins";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <App />
-      <ToastContainer />
-    </Provider>
-  </BrowserRouter>,
+  <StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+        <ToastContainer />
+      </Provider>
+    </BrowserRouter>
+  </StrictMode>,
 );

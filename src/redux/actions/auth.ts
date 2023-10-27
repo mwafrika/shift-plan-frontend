@@ -9,24 +9,19 @@ import {
   SIGNIN_SUCCESS,
 } from "../actionTypes/auth";
 
-export const signup = (userData, navigate) => (dispatch) => {
+export const signup = (userData, navigate, reset) => (dispatch) => {
   userApi
     .signup(userData)
     .then((response) => {
       const { data } = response.data;
       console.log(response, "Response FFFFFF", response.data.message);
 
-      dispatch({
-        type: SIGNUP_REQUEST,
-      });
-
-      toast.loading("Loading...");
-
       if (response.status === 201) {
         dispatch({
           type: SIGNUP_SUCCESS,
           payload: data,
         });
+        reset();
         toast.success(data.message);
         navigate("/login");
       }
@@ -45,11 +40,6 @@ export const signin = (userData, navigate) => (dispatch) => {
     .login(userData)
     .then((response) => {
       const { data } = response.data;
-
-      console.log("Response ZZZZZZZZZ", data.user.role.name);
-      dispatch({
-        type: SIGNIN_REQUEST,
-      });
 
       if (response.status === 200) {
         dispatch({

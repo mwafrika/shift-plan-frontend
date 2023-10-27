@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../../../components/button";
 import Input from "../../../components/input";
@@ -8,19 +8,18 @@ import { signin } from "../../../redux/actions/auth";
 import { useJwt, decodeToken } from "react-jwt";
 
 function LoginPage() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [user, setUser] = useState({ email: "", password: "" });
 
-  const submit = (data: any) => {
-    dispatch(signin(data, navigate) as any);
-    reset();
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setUser((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const submit = (event) => {
+    event.preventDefault();
+    dispatch(signin(user, navigate) as any);
   };
   console.log(
     "This is the decoded user",
@@ -44,29 +43,32 @@ function LoginPage() {
         <div className="flex flex-col justify-center mt-[7rem] ml-[12rem] w-[50%]">
           <div className="pb-3">
             <h1 className="pb-1 text-xl font-bold">Hello there!</h1>
-            <p className="pb-1 text-[0.7rem]">Welcome back</p>
+            <p className=" text-[2rem]">Welcome back</p>
           </div>
-          <form onSubmit={handleSubmit(submit)}>
+          <form onSubmit={submit}>
             <Input
               label="Email"
               placeholder="Enter your email"
-              register={register}
               name="email"
               validator={{ required: true, pattern: /^\S+@\S+$/i }}
               type="email"
+              value={user.email}
+              onChange={handleInputChange}
+              inputStyle="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
             />
-            {errors.email && <p>PLease enter email</p>}
+
             <Input
               label="Password"
               placeholder="Enter your password"
-              register={register}
               name="password"
               validator={{ required: true }}
               type="password"
+              value={user.password}
+              onChange={handleInputChange}
+              inputStyle="mb-2 text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
             />
-            {errors.email && <p>PLease enter password</p>}
 
-            <div className="">
+            <div className="mb-2">
               <Button
                 width="text-white py-[0.7rem] w-full bg-[#032D7C]"
                 type="submit"
