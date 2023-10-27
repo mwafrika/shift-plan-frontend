@@ -45,18 +45,20 @@ export const signin = (userData, navigate) => (dispatch) => {
     .login(userData)
     .then((response) => {
       const { data } = response.data;
+
+      console.log("Response ZZZZZZZZZ", data.user.role.name);
       dispatch({
         type: SIGNIN_REQUEST,
       });
-      console.log(response, "Response FFFFFF", response.data.message);
+
       if (response.status === 200) {
         dispatch({
           type: SIGNIN_SUCCESS,
           payload: data,
         });
 
-        localStorage.setItem("user", data.token);
-        navigate("/");
+        localStorage.setItem("user", JSON.stringify(data));
+        navigate(`/${data.user.role.name}`);
         toast.success(response.data.message);
       }
     })

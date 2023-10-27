@@ -1,5 +1,4 @@
 import React from "react";
-import Layout from "../../../layout";
 import { Mail } from "heroicons-react";
 import { FaUser, FaCity } from "react-icons/fa";
 import { BsFillTelephoneFill, BsLink45Deg } from "react-icons/bs";
@@ -7,6 +6,7 @@ import { MdLocationCity } from "react-icons/md";
 import Button from "../../../components/button";
 import Dialog from "../../../components/dialog";
 import EditCompanyForm from "../companies/editCompany";
+import Layout from "../../../layout";
 
 const SettingPage = () => {
   const [showForm, setShowForm] = React.useState(false);

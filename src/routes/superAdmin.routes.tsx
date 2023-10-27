@@ -29,7 +29,7 @@ export const menusSuperAdmin = [
 const SuperAdminRoutes = () => {
   return (
     <Routes>
-      <Route path="/" index element={<SuperAdminDashboard />} />
+      <Route path="/" element={<SuperAdminDashboard />} />
       <Route path="companies" element={<CompaniesPage />} />
       <Route path="settings" element={<SettingPage />} />
       <Route element={<Navigate to="/" />} />

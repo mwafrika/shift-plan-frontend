@@ -1,40 +1,46 @@
-import React from "react";
-import { Home, Cog, OfficeBuilding } from "heroicons-react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  menusAdmin,
+  menusEmployee,
+  menusManager,
+  menusSuperAdmin,
+} from "../utils/menus";
 
 const Sidebar = () => {
+  const userInfo = JSON.parse(localStorage.getItem("user") as any)?.user;
+  const [user, setUser] = useState(userInfo || {});
+
+  console.log(userInfo, "typeof userInfo?.token", user);
+
+  useEffect(() => {
+    setUser(userInfo);
+  }, []);
+
+  const roleToLinks = {
+    admin: menusAdmin,
+    manager: menusManager,
+    employee: menusEmployee,
+    superAdmin: menusSuperAdmin,
+  };
+
+  const links = roleToLinks[user?.role?.name] || [];
+
   return (
     <nav className="h-screen bg-primary">
       <img src="/whiteLogo.png" alt="Logo" />
       <div className="flex flex-col justify-between h-[88%] px-4 py-6">
         <div className="flex flex-col gap-6 text-white/90 font-sans bg-secondary/20 p-4 rounded-lg">
-          <Link to={"/"} className="flex flex-row items-center gap-2">
-            <Home width={20} />
-            <p>Home</p>
-          </Link>
-          <Link to={"/companies"} className="flex flex-row items-center gap-2">
-            <OfficeBuilding width={22} />
-            <p>Companies</p>
-          </Link>
-          <Link
-            to={"/departments"}
-            className="flex flex-row items-center gap-2"
-          >
-            <OfficeBuilding width={22} />
-            <p>Departments</p>
-          </Link>
-          <Link to={"/shifts"} className="flex flex-row items-center gap-2">
-            <OfficeBuilding width={22} />
-            <p>Shifts</p>
-          </Link>
-          <Link to={"/absences"} className="flex flex-row items-center gap-2">
-            <OfficeBuilding width={22} />
-            <p>Absences</p>
-          </Link>
-          <Link to={"/settings"} className="flex flex-row items-center gap-2">
-            <Cog width={20} />
-            <p>Settings</p>
-          </Link>
+          {links.map((menuItem, index) => (
+            <Link
+              to={menuItem.link}
+              key={index}
+              className="flex flex-row items-center gap-2"
+            >
+              {menuItem.icon}
+              <p>{menuItem.value}</p>
+            </Link>
+          ))}
         </div>
       </div>
     </nav>

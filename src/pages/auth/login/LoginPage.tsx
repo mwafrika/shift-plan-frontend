@@ -18,15 +18,13 @@ function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const token = decodeToken(localStorage.getItem("user") || "");
   const submit = (data: any) => {
     dispatch(signin(data, navigate) as any);
     reset();
   };
   console.log(
-    token?.role,
     "This is the decoded user",
-    localStorage.getItem("user"),
+    JSON.parse(localStorage.getItem("user") as any)?.user?.role?.name,
   );
   return (
     <div className="flex w-full">

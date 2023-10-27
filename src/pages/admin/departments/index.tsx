@@ -1,11 +1,11 @@
 import React from "react";
-import Layout from "../../../layout";
 import Header from "../../../components/header";
 import Filter from "../../../components/filter";
 import DepartmentList from "./list";
 import Button from "../../../components/button";
 import Dialog from "../../../components/dialog";
 import AddDepartmentForm from "./addDepartment";
+import Layout from "../../../layout";
 
 const DepartmentPage = () => {
   const [showForm, setShowForm] = React.useState(false);

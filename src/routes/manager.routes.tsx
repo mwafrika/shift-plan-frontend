@@ -30,7 +30,7 @@ export const menusManager = [
 const ManagerRoutes = () => {
   return (
     <Routes>
-      <Route path="/" index element={<ManagerDashboard />} />
+      <Route path="/" element={<ManagerDashboard />} />
       <Route path="shifts" element={<ShiftPage />} />
       <Route path="absences" element={<AbsencePage />} />
       <Route path="settings" element={<SettingPage />} />
