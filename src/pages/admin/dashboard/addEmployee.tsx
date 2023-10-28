@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
 const AddEmployeeForm = () => {
-  const { register, handleSubmit, watch, errors, getValues } = useForm();
 
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
@@ -18,27 +17,13 @@ const AddEmployeeForm = () => {
   });
 
   const handleChange = (e) => {
-    console.log(e, "kkkkkkkk");
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
-
-  // const handleSubmitData = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   // You can now use newUser to submit the form data
-  //   console.log(newUser, "new user data");
-  //   dispatch(addUser(newUser) as any); // Dispatch your action to add the user
-  // };
 
   console.log(newUser, "new user data");
 
   return (
-    <form
-      className="flex flex-col items-start"
-      // onSubmit={handleSubmit((data) => {
-      //   console.log(data);
-      //   dispatch(addUser(data) as any);
-      // })}
-    >
+    <form className="flex flex-col items-start">
       <Input
         type="text"
         name="name"
@@ -63,13 +48,12 @@ const AddEmployeeForm = () => {
         label="Department"
         placeholder="Department"
         name="departmentId"
-        // value={newUser.departmentId}
-        // onChange={handleChange}
+        Style="border border-primary rounded-[5px] h-8"
         Options={[
           { value: "Employee", label: "Employee" },
           { value: "Manager", label: "Manager" },
         ]}
-        // Style={"border border-primary rounded-[5px] h-8"}
+        value={newUser.departmentId}
       />
 
       <div className="flex flex-row gap-2">

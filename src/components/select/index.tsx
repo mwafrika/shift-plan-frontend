@@ -7,7 +7,7 @@ interface IOption {
 type Props = {
   label: string;
   placeholder: string;
-  style?: string;
+  Style?: string;
   icon?: ReactNode;
   register?: any;
   name: string;
@@ -23,7 +23,7 @@ const SelectInput: React.FC<Props> = (props: Props) => {
   const {
     label,
     placeholder,
-    style,
+    Style,
     icon,
     register,
     name,
@@ -61,24 +61,33 @@ const SelectInput: React.FC<Props> = (props: Props) => {
     //     placeholder={placeholder}
     //   ></input>
     // </div>
-
-    <select
-      onChange={handleChange}
-      className={`text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white ${style}`}
-      {...register?.(name, validator)}
-      {...props}
-      disabled={disabled}
-      value={value}
-    >
-      <option value="" disabled selected>
-        {placeholder}
-      </option>
-      {Options.map((o) => (
-        <option value={o.value} key={o.value}>
-          {o.label}
+    <>
+      {label && (
+        <div className="text-primary/50 mb-1 flex flex-row">
+          {icon}
+          <span>{label} </span>
+        </div>
+      )}
+      <select
+        onChange={handleChange}
+        className={`text-sm p-3 w-full rounded-[10px] focus:outline-0 mb-5 bg-white ${Style}`}
+        {...register?.(name, validator)}
+        {...props}
+        disabled={disabled}
+        value={value}
+        label={label}
+        placeholder={placeholder}
+      >
+        <option value="" disabled selected>
+          {placeholder}
         </option>
-      ))}
-    </select>
+        {Options.map((o) => (
+          <option value={o.value} key={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </>
   );
 };
 
