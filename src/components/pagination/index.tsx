@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import ReactPaginate from 'react-paginate';
+import React from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import ReactPaginate from "react-paginate";
 
-type PropTypes = {
+type PaginationProps = {
   pagesCount: number;
   currentPage: number;
-  onPageChange: any;
+  onPageChange: (selectedItem: { selected: number }) => void;
 };
 
-const Pagination: React.FC<PropTypes> = (props) => {
-  const { pagesCount, onPageChange } = props;
-  const pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
+const Pagination: React.FC<PaginationProps> = ({
+  pagesCount,
+  currentPage,
+  onPageChange,
+}) => {
+  const pages = Array.from({ length: pagesCount }, (_, index) => index + 1);
 
   return (
     <ReactPaginate

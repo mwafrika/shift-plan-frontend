@@ -4,17 +4,22 @@ import Input from "../../../components/input";
 import Button from "../../../components/button";
 
 function ResetPassword() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const [email, setEmail] = React.useState("");
+  const [errors, setErrors] = React.useState({
+    email: "",
+  });
 
-  const submit = (data) => {
-    console.log(data);
-    reset();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email) {
+      setErrors({ email: "Please enter your email address!" });
+    } else {
+      setErrors({ email: "" });
+    }
   };
+
+  console.log("Reset Password", [email, setEmail]);
+
   return (
     <div className="flex w-full">
       <div className="bg-[#032D7C] w-1/2 h-[100vh]  ">
@@ -36,11 +41,12 @@ function ResetPassword() {
           </div>
           <div className="mb-7" />
 
-          <form onSubmit={handleSubmit(submit)}>
+          <form onSubmit={handleSubmit}>
             <Input
               placeholder="Email Address"
-              register={register}
+              onChange={(e) => setEmail(e.target.value)}
               name="email"
+              value={email}
               validator={{ required: true, pattern: /^\S+@\S+$/i }}
               type="email"
             />

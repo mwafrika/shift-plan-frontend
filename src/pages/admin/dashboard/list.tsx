@@ -14,6 +14,7 @@ const EmployeesList = () => {
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const { users } = useSelector((state) => state.users);
+  const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
 
   // Fetch users and roles on component mount
@@ -32,6 +33,15 @@ const EmployeesList = () => {
     dispatch(getUsers() as any);
     setShowDelete(!showDelete);
   };
+
+  const handlePageChange = (selectedItem) => {
+    setCurrentPage(selectedItem.selected);
+  };
+
+  const itemsPerPage = 10;
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+ // const usersForCurrentPage = users.slice(startIndex, endIndex);
 
   console.log(users, "All users", showDelete, "popup");
   return (
@@ -108,7 +118,11 @@ const EmployeesList = () => {
           ))}
         </tbody>
       </table>
-      <Pagination pagesCount={6} currentPage={0} onPageChange={undefined} />
+      <Pagination
+        pagesCount={Math.ceil(users.length / itemsPerPage)}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

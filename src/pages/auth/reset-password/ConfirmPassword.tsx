@@ -15,8 +15,11 @@ function ConfirmPassword() {
     confirmPassword: "",
   });
 
-  const onInputChange = (e) => {};
-
+  const onInputChange = (e) => {
+    const { name, value } = e.target;
+    setInput((prev) => ({ ...prev, [name]: value }));
+  };
+  console.log(input);
   const validateInput = (e) => {};
   return (
     <div className="flex w-full">
@@ -43,10 +46,10 @@ function ConfirmPassword() {
             <div className="input-container">
               <Input
                 placeholder="New password"
-                defaultValue={input.password}
                 name="password"
                 validator={{ required: true }}
                 onChange={onInputChange}
+                value={input.password}
                 type="password"
               />
               {error.password && <span className="err">{error.password}</span>}
@@ -56,10 +59,10 @@ function ConfirmPassword() {
             <div className="input-container">
               <Input
                 placeholder="Confirm Password"
-                defaultValue={input.confirmPassword}
-                name="confirmpassword"
+                name="confirmPassword"
                 validator={{ required: true }}
                 onChange={onInputChange}
+                value={input.confirmPassword}
                 type="password"
               />
             </div>
