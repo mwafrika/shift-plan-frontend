@@ -12,6 +12,7 @@ const initialState = {
   user: null,
   error: null,
   loading: false,
+  roles: [],
 };
 
 const authReducer = (state = initialState, action) => {
@@ -50,6 +51,8 @@ const authReducer = (state = initialState, action) => {
         error: action.payload,
         loading: false,
       };
+
+   
     default:
       return state;
   }

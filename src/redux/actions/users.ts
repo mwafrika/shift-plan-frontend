@@ -14,6 +14,8 @@ import {
   EDIT_USER_SUCCESS,
   EDIT_USER_FAILURE,
   EDIT_USER,
+  
+  
 } from "../actionTypes/users";
 
 import { toast } from "react-toastify";
@@ -121,13 +123,13 @@ export const deleteUser = (userId) => (dispatch) => {
     });
 };
 
-export const editUser = (userData, userId) => (dispatch) => {
+export const editUser = (userId, userData) => (dispatch) => {
   dispatch({
     type: EDIT_USER,
   });
 
   userApi
-    .editUser(userData, userId)
+    .editUser(userId, userData)
     .then((response) => {
       const { data } = response.data;
 
@@ -146,4 +148,20 @@ export const editUser = (userData, userId) => (dispatch) => {
       });
       toast.error(error.response.data.message || error.response.data.error);
     });
+};
+
+export const logout = (navigate) => (dispatch) => {
+  localStorage.removeItem("user");
+  navigate("/login");
+};
+
+export const clearErrors = () => (dispatch) => {
+  dispatch({
+    type: SIGNUP_FAILURE,
+    payload: "",
+  });
+  dispatch({
+    type: SIGNIN_FAILURE,
+    payload: "",
+  });
 };

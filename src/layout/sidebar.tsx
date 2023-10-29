@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   menusAdmin,
   menusEmployee,
@@ -8,6 +8,7 @@ import {
 } from "../utils/menus";
 
 const Sidebar = () => {
+  const location = useLocation();
   const userInfo = JSON.parse(localStorage.getItem("user") as any)?.user;
   const [user, setUser] = useState(userInfo || {});
 
@@ -35,7 +36,11 @@ const Sidebar = () => {
             <Link
               to={menuItem.link}
               key={index}
-              className="flex flex-row items-center gap-2"
+              className={`flex flex-row items-center gap-2 ${
+                location.pathname === menuItem.link
+                  ? "bg-secondary/30 text-white/100 rounded-lg p-1" 
+                  : ""
+              }`}
             >
               {menuItem.icon}
               <p>{menuItem.value}</p>

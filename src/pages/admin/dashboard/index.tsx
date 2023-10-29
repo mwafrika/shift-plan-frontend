@@ -20,7 +20,7 @@ const AdminDashboard = () => {
         </Dialog>
       )}
       <div className="bg-background p-4">
-        <Header title={"Managers/Employees"} />
+        {/* <Header title={"Managers/Employees"} /> */}
         <div className="flex flex-row items-center gap-8">
           <Card
             title={"Managers"}
