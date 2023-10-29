@@ -41,7 +41,7 @@ const EmployeesList = () => {
   const itemsPerPage = 10;
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
- // const usersForCurrentPage = users.slice(startIndex, endIndex);
+  const usersForCurrentPage = users.slice(startIndex, endIndex);
 
   console.log(users, "All users", showDelete, "popup");
   return (
@@ -82,7 +82,7 @@ const EmployeesList = () => {
         </thead>
 
         <tbody>
-          {users?.map((emp) => (
+          {usersForCurrentPage?.map((emp) => (
             <tr key={emp.id} className="bg-white">
               <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
                 <Checkbox name={emp.name} />
