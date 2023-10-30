@@ -70,7 +70,7 @@ const SelectInput: React.FC<Props> = (props: Props) => {
       )}
       <select
         onChange={handleChange}
-        className={`text-sm p-3 w-full rounded-[10px] focus:outline-0 mb-5 bg-white ${Style}`}
+        className={`text-sm p-1 w-full rounded-[10px] focus:outline-0 mb-5 bg-white ${Style}`}
         {...register?.(name, validator)}
         {...props}
         disabled={disabled}

@@ -9,12 +9,6 @@ export const menusAdmin = [
     active: false,
   },
   {
-    value: "Companies",
-    link: "/admin/companies",
-    icon: <OfficeBuilding width={22} className="mr-4" />,
-    active: false,
-  },
-  {
     value: "Departments",
     link: "/admin/departments",
     icon: <OfficeBuilding width={22} className="mr-4" />,

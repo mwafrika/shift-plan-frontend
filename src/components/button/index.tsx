@@ -53,7 +53,7 @@ const Button: React.FC<Props> = (props: Props) => {
 
   return (
     <button
-      className={`${centerStyle} flex-row m-auto transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 mt-2  rounded-[15px] ${width} ${height}`}
+      className={`${centerStyle} flex-row transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 mt-2  rounded-[15px] ${width} ${height}`}
       onClick={onClick}
     >
       {label}

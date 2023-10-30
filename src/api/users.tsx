@@ -54,3 +54,9 @@ export const editRole = async (id, data) => {
   const response = await authAxios.patch(`/roles/${id}`, data);
   return response;
 };
+
+
+export const getUserProfile = async (id) => {
+  const response = await authAxios.get(`/users/${id}`);
+  return response;
+} 

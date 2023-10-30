@@ -28,17 +28,17 @@ const Sidebar = () => {
   const links = roleToLinks[user?.role?.name] || [];
 
   return (
-    <nav className="h-screen bg-primary">
+    <nav className="bg-primary min-h-screen">
       <img src="/whiteLogo.png" alt="Logo" />
-      <div className="flex flex-col justify-between h-[88%] px-4 py-6">
+      <div className="flex flex-col h-full justify-between px-4 py-6">
         <div className="flex flex-col gap-6 text-white/90 font-sans bg-secondary/20 p-4 rounded-lg">
           {links.map((menuItem, index) => (
             <Link
               to={menuItem.link}
               key={index}
-              className={`flex flex-row items-center gap-2 ${
+              className={`flex flex-row items-center gap-2 p-2 rounded-lg ${
                 location.pathname === menuItem.link
-                  ? "bg-secondary/30 text-white/100 rounded-lg p-1" 
+                  ? "bg-secondary/30 text-white/100"
                   : ""
               }`}
             >

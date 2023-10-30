@@ -6,13 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { editUser, getUsers } from "../../../redux/actions/users";
 import { fetchRoles } from "../../../redux/actions/role";
 import { togglePopup } from "../../../redux/actions/form";
+import { getDepartments } from "../../../redux/actions/department";
 
-const EditEmployeeForm = () => {
+const EditEmployeeForm = ({ closeModal }) => {
   // const { popup } = useSelector((state) => state.form);
-  const { user, roles, users } = useSelector((state) => ({
+  const { user, roles, users, departments } = useSelector((state) => ({
     user: state?.users?.user,
     roles: state?.roles?.roles,
     users: state?.users?.users,
+    departments: state?.departments?.departments,
   }));
 
   const [showForm, setShowForm] = useState(false);
@@ -26,14 +28,21 @@ const EditEmployeeForm = () => {
         name: user.name || "",
         email: user.email || "",
         roleId: user.role?.id || "",
+        departmentId: user.department?.id || "",
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    dispatch(fetchRoles() as any);
+    dispatch(getDepartments() as any);
+  }, []);
 
   const [userData, setUserData] = useState({
     name: "",
     email: "",
     roleId: "",
+    departmentId: "",
   });
 
   const handleInputChange = (e) => {
@@ -44,8 +53,10 @@ const EditEmployeeForm = () => {
   const submit = (event) => {
     event.preventDefault();
     dispatch(editUser(user.id, userData) as any);
-    setShowForm(!showForm);
+    dispatch(fetchRoles() as any);
+    dispatch(getDepartments() as any);
     dispatch(getUsers() as any);
+    closeModal();
   };
 
   const handleEditEmployee = (e) => {
@@ -53,7 +64,7 @@ const EditEmployeeForm = () => {
     submit(e);
   };
 
-  console.log(userData.roleId, "roles");
+  console.log(userData.departmentId, "All my departments");
   return (
     <form className="flex flex-col items-start" onSubmit={handleEditEmployee}>
       <Input
@@ -75,6 +86,20 @@ const EditEmployeeForm = () => {
         onChange={handleInputChange}
       />
       <SelectInput
+        label="Department"
+        placeholder="Department"
+        name="departmentId"
+        Style="border border-primary rounded-[5px]"
+        Options={
+          departments?.map((department) => ({
+            value: department.id,
+            label: department.departmentName,
+          })) || []
+        }
+        onChange={handleInputChange}
+        value={userData.departmentId}
+      />
+      <SelectInput
         label="Role"
         placeholder="Employee"
         name="roleId"
@@ -84,11 +109,11 @@ const EditEmployeeForm = () => {
             value: role.id,
           })) || []
         }
-        // Style="border border-primary rounded-[5px] h-8"
-
+        Style="border border-primary rounded-[5px]"
         onChange={handleInputChange}
         value={userData.roleId}
       />
+
       <div className="flex flex-row gap-2">
         <Button
           label="Cancel"

@@ -7,12 +7,29 @@ import Button from "../../../components/button";
 import Dialog from "../../../components/dialog";
 import EditCompanyForm from "../companies/editCompany";
 import Layout from "../../../layout";
+import {
+  getUserProfile,
+  updateUserProfile,
+} from "../../../redux/actions/setting";
+import { useDispatch, useSelector } from "react-redux";
 
 const SettingPage = () => {
   const [showForm, setShowForm] = React.useState(false);
+  const dispatch = useDispatch();
+
+  const userProfile = useSelector((state) => state?.setting?.user);
+
+  React.useEffect(() => {
+    dispatch(getUserProfile() as any);
+  }, [dispatch]);
+
+  console.log("MY PROFILE INFO", userProfile, "My profile", userProfile?.email);
 
   return (
-    <Layout user="Admin" username="Admin Okolongo">
+    <Layout
+      user={userProfile?.role?.name}
+      username={userProfile?.name || userProfile?.company?.companyName}
+    >
       {showForm && (
         <Dialog title="Edit company" width="w-[30%]">
           <EditCompanyForm />
@@ -24,16 +41,20 @@ const SettingPage = () => {
             <div className="bg-white p-2 rounded-full">
               <FaUser className="text-primary text-[2rem]" />
             </div>
-            <h1>Admin Okolongo</h1>
+            <h1>{userProfile?.name || userProfile?.company?.companyName}</h1>
           </div>
           <div className="flex flex-col gap-1 bg-secondary/5 rounded-md p-8 h-[70%]">
             <h2>Description</h2>
             <p className="text-sm">
+              {userProfile?.description ||
+                userProfile?.company?.companyDescription ||
+                `
               abc Corporation is a technology company based in KIgali rwanda,
               specializing in software development and IT solutions. We have
               over 15 years of experience and a team of skilled professionals
               dedicated to delivering innovative products and services to
               clients worldwide.
+              `}
             </p>
           </div>
         </div>
@@ -54,7 +75,7 @@ const SettingPage = () => {
               <Mail size={24} className="text-secondary " />
               <div className="flex flex-col gap-1">
                 <p>Email</p>
-                <p className="text-secondary">adminokolongo@gmail.com</p>
+                <p className="text-secondary">{userProfile?.email}</p>
               </div>
             </div>
 
@@ -62,7 +83,9 @@ const SettingPage = () => {
               <BsFillTelephoneFill size={24} className=" text-secondary " />
               <div className="flex flex-col gap-1">
                 <p>Telephone</p>
-                <p className="text-secondary">+250 791434194</p>
+                <p className="text-secondary">
+                  {userProfile?.phone || "+243995220038"}
+                </p>
               </div>
             </div>
 
@@ -70,7 +93,9 @@ const SettingPage = () => {
               <FaCity size={24} className=" text-secondary " />
               <div className="flex flex-col gap-1">
                 <p>City & Street</p>
-                <p className="text-secondary">Kigali, Kimihurura</p>
+                <p className="text-secondary">
+                  {`${userProfile?.city || ""}` || "Kigali, Kimihurura"}
+                </p>
               </div>
             </div>
 
@@ -78,7 +103,7 @@ const SettingPage = () => {
               <MdLocationCity size={24} className=" text-secondary " />
               <div className="flex flex-col gap-1">
                 <p>Country & Province</p>
-                <p className="text-secondary">Rwanda, Kigali</p>
+                <p className="text-secondary">{userProfile?.country || ""}</p>
               </div>
             </div>
 
@@ -90,7 +115,8 @@ const SettingPage = () => {
                   href="https://www.codeofafrica.com/EN"
                   className="text-secondary"
                 >
-                  https://www.codeofafrica.com/EN
+                  {userProfile?.company?.companyUrl ||
+                    "https://www.codeofafrica.com/EN"}
                 </a>
               </div>
             </div>

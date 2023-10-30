@@ -1,29 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../../components/input";
 import SelectInput from "../../../components/select";
 import Button from "../../../components/button";
-import { addUser } from "../../../redux/actions/users";
+import { addUser, getUsers } from "../../../redux/actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { fetchRoles } from "../../../redux/actions/role";
+import { getDepartments } from "../../../redux/actions/department";
 
-const AddEmployeeForm = () => {
-
+const AddEmployeeForm = ({ showForm, setShowForm }) => {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.users);
+  const { roles } = useSelector((state) => state.roles);
+  const { departments } = useSelector((state) => state.departments);
+
   const [newUser, setNewUser] = useState({
     name: "",
     email: "",
-    departmentId: "",
+    departmentId: null,
+    roleId: null,
   });
 
+  useEffect(() => {
+    dispatch(fetchRoles() as any);
+    dispatch(getDepartments() as any);
+  }, []);
+
+  console.log(departments, "Departents");
   const handleChange = (e) => {
-    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+    setNewUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addUser(newUser) as any);
+    dispatch(getUsers() as any);
+    dispatch(getDepartments() as any);
+    setShowForm(!showForm);
   };
 
   console.log(newUser, "new user data");
 
   return (
-    <form className="flex flex-col items-start">
+    <form className="flex flex-col items-start" onSubmit={handleSubmit}>
       <Input
         type="text"
         name="name"
@@ -48,11 +66,29 @@ const AddEmployeeForm = () => {
         label="Department"
         placeholder="Department"
         name="departmentId"
-        Style="border border-primary rounded-[5px] h-8"
-        Options={[
-          { value: "Employee", label: "Employee" },
-          { value: "Manager", label: "Manager" },
-        ]}
+        Style="border border-primary rounded-[5px]"
+        Options={
+          departments &&
+          departments.map((department) => ({
+            value: department.id,
+            label: department.departmentName,
+          }))
+        }
+        value={newUser.departmentId}
+      />
+
+      <SelectInput
+        label="Roles"
+        placeholder="Roles"
+        name="roleId"
+        Style="border border-primary rounded-[5px]"
+        Options={
+          roles &&
+          roles.map((role) => ({
+            value: role.id,
+            label: role.name,
+          }))
+        }
         value={newUser.departmentId}
       />
 

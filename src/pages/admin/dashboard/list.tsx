@@ -8,7 +8,8 @@ import EditEmployeeForm from "./editEmployee";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, getUser, deleteUser } from "../../../redux/actions/users";
 import { fetchRoles } from "../../../redux/actions/role";
-import { togglePopup } from "../../../redux/actions/form";
+import { getItemsForCurrentPage } from "../../../utils/pagination";
+import { getDepartments } from "../../../redux/actions/department";
 
 const EmployeesList = () => {
   const [showDelete, setShowDelete] = useState(false);
@@ -21,6 +22,7 @@ const EmployeesList = () => {
   useEffect(() => {
     dispatch(getUsers() as any);
     dispatch(fetchRoles() as any);
+    dispatch(getDepartments() as any);
   }, [dispatch]);
 
   const handleEdit = (id) => {
@@ -38,10 +40,8 @@ const EmployeesList = () => {
     setCurrentPage(selectedItem.selected);
   };
 
-  const itemsPerPage = 10;
-  const startIndex = currentPage * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const usersForCurrentPage = users.slice(startIndex, endIndex);
+  const itemsPerPage = 8;
+  const userData = getItemsForCurrentPage(users, currentPage, itemsPerPage);
 
   console.log(users, "All users", showDelete, "popup");
   return (
@@ -54,7 +54,11 @@ const EmployeesList = () => {
             setShowEdit(!showEdit);
           }}
         >
-          <EditEmployeeForm />
+          <EditEmployeeForm
+            closeModal={() => {
+              setShowEdit(!showEdit);
+            }}
+          />
         </Dialog>
       )}
       <table className="table p-5 overflow-auto md:overflow-visible md:table-fixed md:w-full sm:hidden">
@@ -82,7 +86,7 @@ const EmployeesList = () => {
         </thead>
 
         <tbody>
-          {usersForCurrentPage?.map((emp) => (
+          {userData?.map((emp) => (
             <tr key={emp.id} className="bg-white">
               <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
                 <Checkbox name={emp.name} />
