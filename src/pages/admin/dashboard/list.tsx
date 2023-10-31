@@ -11,7 +11,7 @@ import { fetchRoles } from "../../../redux/actions/role";
 import { getItemsForCurrentPage } from "../../../utils/pagination";
 import { getDepartments } from "../../../redux/actions/department";
 
-const EmployeesList = () => {
+const EmployeesList = ({ dataToDisplay }) => {
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const { users } = useSelector((state) => state.users);
@@ -41,7 +41,13 @@ const EmployeesList = () => {
   };
 
   const itemsPerPage = 8;
-  const userData = getItemsForCurrentPage(users, currentPage, itemsPerPage);
+  const userData = getItemsForCurrentPage(
+    dataToDisplay,
+    currentPage,
+    itemsPerPage,
+  );
+
+  console.log(userData, "userData");
 
   console.log(users, "All users", showDelete, "popup");
   return (
@@ -123,7 +129,7 @@ const EmployeesList = () => {
         </tbody>
       </table>
       <Pagination
-        pagesCount={Math.ceil(users.length / itemsPerPage)}
+        pagesCount={Math.ceil(dataToDisplay.length / itemsPerPage)}
         currentPage={currentPage}
         onPageChange={handlePageChange}
       />

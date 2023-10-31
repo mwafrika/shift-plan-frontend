@@ -8,20 +8,35 @@ import Button from "../../../components/button";
 import Dialog from "../../../components/dialog";
 import AddEmployeeForm from "./addEmployee";
 import Layout from "../../../layout";
-import { getUsers } from "../../../redux/actions/users";
+import { getUsers, searchUsers, getUser } from "../../../redux/actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import FilterSection from "../../../components/filter/filter";
 import { getDepartments } from "../../../redux/actions/department";
+import { getUserProfile } from "../../../redux/actions/setting";
 
 const AdminDashboard = () => {
   const [showForm, setShowForm] = React.useState(false);
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.users);
+  const { users, user, filteredUsers } = useSelector((state) => state.users);
   const { departments } = useSelector((state) => state.departments);
+  const currentUser = useSelector((state) => state.setting.user);
+
+  const [searchInput, setSearchInput] = React.useState("");
+
   useEffect(() => {
     dispatch(getUsers() as any);
     dispatch(getDepartments() as any);
+  }, [searchInput]);
+
+  useEffect(() => {
+    dispatch(getUserProfile() as any);
   }, []);
+
+  const handleSearchInputChange = (event) => {
+    const searchInput = event.target.value;
+    setSearchInput(searchInput);
+    dispatch(searchUsers(searchInput));
+  };
 
   const countManagers = users.filter(
     (user) => user?.role?.name === "manager",
@@ -39,10 +54,12 @@ const AdminDashboard = () => {
   // filter only departments of the current company
   const companyDepartments = departments?.length;
 
-  console.log(countManagers, "countManagers");
-
+  const dataToDisplay = searchInput ? filteredUsers : users;
   return (
-    <Layout user={"Admin"} username={"Admin Okolongo"}>
+    <Layout
+      user={currentUser?.role?.name?.toUpperCase()}
+      username={currentUser?.name}
+    >
       {showForm && (
         <Dialog
           title="Create employee"
@@ -69,7 +86,7 @@ const AdminDashboard = () => {
           />
         </div>
         <div className="w-1/3">
-          <FilterSection />
+          <FilterSection handleSearchInputChange={handleSearchInputChange} />
         </div>
 
         <div className="flex flex-col items-center justify-start w-full">
@@ -90,7 +107,7 @@ const AdminDashboard = () => {
             />
           </div>
         </div>
-        <EmployeesList />
+        <EmployeesList dataToDisplay={dataToDisplay} />
       </div>
     </Layout>
   );

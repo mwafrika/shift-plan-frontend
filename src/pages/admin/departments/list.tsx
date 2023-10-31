@@ -15,34 +15,16 @@ import {
 import { getUsers } from "../../../redux/actions/users";
 import { getItemsForCurrentPage } from "../../../utils/pagination";
 
-const DepartmentList = () => {
+const DepartmentList = ({ dataToDisplay }) => {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.users);
   const { departments } = useSelector((state) => state.departments);
   const [currentPage, setCurrentPage] = useState(0);
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
-  useEffect(() => {
-    dispatch(getUsers() as any);
-    dispatch(getDepartments() as any);
-  }, []);
-
-  const countManagers = users.filter(
-    (user) => user?.role?.name === "manager",
-  ).length;
-
-  const countEmployees = users.filter(
-    (user) => user?.role?.name === "employee",
-  ).length;
-
-  // filter where the user is not super admin or admin
-  const countAllUsers = users.filter(
-    (user) => user?.role?.name !== "superAdmin" && user?.role?.name !== "admin",
-  ).length;
 
   const itemsPerPage = 8;
   const departmentData = getItemsForCurrentPage(
-    departments,
+    dataToDisplay,
     currentPage,
     itemsPerPage,
   );
@@ -137,7 +119,7 @@ const DepartmentList = () => {
         </tbody>
       </table>
       <Pagination
-        pagesCount={Math.ceil(departments.length / itemsPerPage)}
+        pagesCount={Math.ceil(dataToDisplay.length / itemsPerPage)}
         currentPage={currentPage}
         onPageChange={handlePageChange}
       />

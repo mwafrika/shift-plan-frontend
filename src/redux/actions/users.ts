@@ -14,8 +14,7 @@ import {
   EDIT_USER_SUCCESS,
   EDIT_USER_FAILURE,
   EDIT_USER,
-  
-  
+  SEARCH_USERS_START,
 } from "../actionTypes/users";
 
 import { toast } from "react-toastify";
@@ -155,13 +154,20 @@ export const logout = (navigate) => (dispatch) => {
   navigate("/login");
 };
 
-export const clearErrors = () => (dispatch) => {
-  dispatch({
-    type: SIGNUP_FAILURE,
-    payload: "",
-  });
-  dispatch({
-    type: SIGNIN_FAILURE,
-    payload: "",
-  });
+// export const clearErrors = () => (dispatch) => {
+//   dispatch({
+//     type: SIGNUP_FAILURE,
+//     payload: "",
+//   });
+//   dispatch({
+//     type: SIGNIN_FAILURE,
+//     payload: "",
+//   });
+// };
+
+export const searchUsers = (searchInput) => {
+  return {
+    type: SEARCH_USERS_START,
+    payload: searchInput,
+  };
 };

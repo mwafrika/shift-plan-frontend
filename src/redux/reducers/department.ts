@@ -17,6 +17,7 @@ import {
   GET_DEPARTMENT_EMPLOYEES_START,
   GET_DEPARTMENT_EMPLOYEES_SUCCESS,
   GET_DEPARTMENT_EMPLOYEES_FAILURE,
+  SEARCH_DEPARTMENT_START,
 } from "../actionTypes/department";
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
   users: [],
   loading: false,
   error: null,
+  filteredDepartments: [],
 };
 
 const departmentReducer = (state = initialState, action) => {
@@ -135,6 +137,26 @@ const departmentReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case SEARCH_DEPARTMENT_START:
+      const { payload } = action;
+      const fieldsToSearch = [
+        "departmentName",
+        "departmentManager",
+        "departmentDescription",
+      ];
+
+      const filteredDepartments = state?.departments?.filter((department) =>
+        fieldsToSearch.some((field) => {
+          const departmentField = department[field] as string | undefined;
+          if (departmentField) {
+            return departmentField
+              .toLowerCase()
+              .includes(payload?.toLowerCase());
+          }
+          return false;
+        }),
+      );
+      return { ...state, filteredDepartments };
     default:
       return state;
   }

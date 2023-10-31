@@ -5,7 +5,7 @@ import { BsFillTelephoneFill, BsLink45Deg } from "react-icons/bs";
 import { MdLocationCity } from "react-icons/md";
 import Button from "../../../components/button";
 import Dialog from "../../../components/dialog";
-import EditCompanyForm from "../companies/editCompany";
+import EditProfile from "./editProfile";
 import Layout from "../../../layout";
 import {
   getUserProfile,
@@ -27,12 +27,12 @@ const SettingPage = () => {
 
   return (
     <Layout
-      user={userProfile?.role?.name}
-      username={userProfile?.name || userProfile?.company?.companyName}
+      user={userProfile?.role?.name.toUpperCase()}
+      username={userProfile?.name}
     >
       {showForm && (
         <Dialog title="Edit company" width="w-[30%]">
-          <EditCompanyForm />
+          <EditProfile />
         </Dialog>
       )}
       <div className="flex justify-between p-4 gap-[2rem] bg-background h-[90vh]">

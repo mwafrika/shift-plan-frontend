@@ -10,18 +10,37 @@ import Card from "../../../components/card";
 import FilterSection from "../../../components/filter/filter";
 import DepartmentList from "./list";
 import { useDispatch, useSelector } from "react-redux";
-import { getDepartments } from "../../../redux/actions/department";
+import {
+  getDepartments,
+  searchDepartments,
+} from "../../../redux/actions/department";
 import { getUsers } from "../../../redux/actions/users";
+import { getUserProfile } from "../../../redux/actions/setting";
 
 const DepartmentPage = () => {
   const [showForm, setShowForm] = React.useState(false);
+  const [searchInput, setSearchInput] = React.useState("");
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
-  const { departments } = useSelector((state) => state.departments);
+  const { departments, filteredDepartments } = useSelector(
+    (state) => state.departments,
+  );
+  const currentUser = useSelector((state) => state.setting.user);
+
   useEffect(() => {
     dispatch(getUsers() as any);
     dispatch(getDepartments() as any);
+  }, [searchInput]);
+
+  useEffect(() => {
+    dispatch(getUserProfile() as any);
   }, []);
+
+  const handleSearchInputChange = (event) => {
+    const searchInput = event.target.value;
+    setSearchInput(searchInput);
+    dispatch(searchDepartments(searchInput));
+  };
 
   const countManagers = users.filter(
     (user) => user?.role?.name === "manager",
@@ -31,18 +50,18 @@ const DepartmentPage = () => {
     (user) => user?.role?.name === "employee",
   ).length;
 
-  // filter where the user is not super admin or admin
   const countAllUsers = users.filter(
     (user) => user?.role?.name !== "superAdmin" && user?.role?.name !== "admin",
   ).length;
 
-  // filter only departments of the current company
   const companyDepartments = departments?.length;
-
-  console.log(countManagers, "countManagers");
+  const dataToDisplay = searchInput ? filteredDepartments : departments;
 
   return (
-    <Layout user={"Admin"} username={"Admin Okolongo"}>
+    <Layout
+      user={currentUser?.role?.name?.toUpperCase()}
+      username={currentUser?.name}
+    >
       {showForm && (
         <Dialog
           title="Create employee"
@@ -58,7 +77,7 @@ const DepartmentPage = () => {
         <Header title={"Departments"} />
 
         <div className="w-1/3 mt-10">
-          <FilterSection />
+          <FilterSection handleSearchInputChange={handleSearchInputChange} />
         </div>
 
         <div className="flex flex-col items-center justify-start w-full">
@@ -79,7 +98,7 @@ const DepartmentPage = () => {
             />
           </div>
         </div>
-        <DepartmentList />
+        <DepartmentList dataToDisplay={dataToDisplay} />
       </div>
     </Layout>
   );

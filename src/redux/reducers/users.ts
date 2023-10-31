@@ -14,6 +14,7 @@ import {
   EDIT_USER_SUCCESS,
   EDIT_USER_FAILURE,
   EDIT_USER,
+  SEARCH_USERS_START,
 } from "../actionTypes/users";
 
 import { toast } from "react-toastify";
@@ -43,6 +44,7 @@ const initialState = {
   loading: false,
   roles: [],
   role: null,
+  filteredUsers: [],
 };
 
 console.log(initialState, "initialState");
@@ -223,6 +225,26 @@ const usersReducer = (state = initialState, action) => {
         error: action.payload,
         loading: false,
       };
+
+    case SEARCH_USERS_START:
+      const { payload } = action;
+      const fieldsToSearch = [
+        "name",
+        "email",
+        "department.depertmentName",
+        "phone",
+      ];
+
+      const filteredUsers = state?.users?.filter((user) =>
+        fieldsToSearch.some((field) => {
+          const userField = user[field] as string | undefined;
+          if (userField) {
+            return userField.toLowerCase().includes(payload?.toLowerCase());
+          }
+          return false;
+        }),
+      );
+      return { ...state, filteredUsers };
 
     default:
       return state;

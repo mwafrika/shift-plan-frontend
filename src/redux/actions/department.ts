@@ -19,6 +19,9 @@ import {
   GET_DEPARTMENT_EMPLOYEES_START,
   GET_DEPARTMENT_EMPLOYEES_SUCCESS,
   GET_DEPARTMENT_EMPLOYEES_FAILURE,
+  SEARCH_DEPARTMENT_START,
+  SEARCH_DEPARTMENT_SUCCESS,
+  SEARCH_DEPARTMENT_FAILURE,
 } from "../actionTypes/department";
 
 export const createDepartment = (departmentData) => (dispatch) => {
@@ -176,4 +179,12 @@ export const getDepartmentEmployees = (departmentId) => (dispatch) => {
         payload: error.response.data.message || error.response.data.error,
       });
     });
+};
+
+export const searchDepartments = (searchInput) => {
+  console.log(searchInput, "searchInput Actions");
+  return {
+    type: SEARCH_DEPARTMENT_START,
+    payload: searchInput,
+  };
 };
