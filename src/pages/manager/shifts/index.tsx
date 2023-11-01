@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../../components/button";
 import ShiftList from "./list";
 import Layout from "../../../layout";
-import AddEmployeeForm from "./addEmployee";
+import AddEmployeeForm from "./addShift";
 import Dialog from "../../../components/dialog";
 const ShiftPage = () => {
   const [showForm, setShowForm] = React.useState(false);

@@ -89,14 +89,14 @@ export const assignShift = (shift) => async (dispatch) => {
   }
 };
 
-export const unassignShift = (shift) => async (dispatch) => {
-  dispatch({ type: ASSIGN_SHIFT_START });
-  try {
-    const response = await shiftApi.unassignShift(shift);
-    dispatch({ type: ASSIGN_SHIFT_SUCCESS, payload: response.data });
-    toast.success("Shift unassigned successfully");
-  } catch (error) {
-    dispatch({ type: ASSIGN_SHIFT_FAILURE });
-    toast.error("Error unassigning shift");
-  }
-};
+// export const unassignShift = (shift) => async (dispatch) => {
+//   dispatch({ type: ASSIGN_SHIFT_START });
+//   try {
+//     const response = await shiftApi.unassignShift(shift);
+//     dispatch({ type: ASSIGN_SHIFT_SUCCESS, payload: response.data });
+//     toast.success("Shift unassigned successfully");
+//   } catch (error) {
+//     dispatch({ type: ASSIGN_SHIFT_FAILURE });
+//     toast.error("Error unassigning shift");
+//   }
+// };

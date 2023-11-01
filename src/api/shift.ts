@@ -25,12 +25,12 @@ export const deleteShift = async (id: string) => {
   return data;
 };
 
-export const assignShift = async (formData: any) => {
-  const { data } = await authAxios.post(`/shifts/assign`, formData);
+export const assignShift = async (shiftData) => {
+  const { data } = await authAxios.post(`/shifts/assign`, shiftData);
   return data;
 };
 
-export const unassignShift = async (formData: any) => {
-  const { data } = await authAxios.patch(`/shifts/unassign`, formData);
+export const unassignShift = async (shiftData) => {
+  const { data } = await authAxios.patch(`/shifts/unassign`, shiftData);
   return data;
 };
