@@ -34,3 +34,8 @@ export const unassignShift = async (shiftData) => {
   const { data } = await authAxios.patch(`/shifts/unassign`, shiftData);
   return data;
 };
+
+export const getShiftsWithEmployees = async () => {
+  const { data } = await authAxios.get("/shifts/employees");
+  return data;
+};

@@ -20,11 +20,15 @@ import {
   UNASSIGN_SHIFT_SUCCESS,
   UNASSIGN_SHIFT_FAILURE,
   UNASSIGN_SHIFT_START,
+  GET_SHIFTS_WITH_EMPLOYEES_START,
+  GET_SHIFTS_WITH_EMPLOYEES_SUCCESS,
+  GET_SHIFTS_WITH_EMPLOYEES_FAILURE,
 } from "../actionTypes/shift";
 
 const initialState = {
   shifts: [],
   userShiftAssignments: [],
+  shiftsWithEmployees: [],
   loading: false,
   message: "",
 };
@@ -97,6 +101,16 @@ const shiftReducer = (state = initialState, action) => {
         ),
       };
     case UNASSIGN_SHIFT_FAILURE:
+      return { ...state, loading: false };
+    case GET_SHIFTS_WITH_EMPLOYEES_START:
+      return { ...state, loading: true };
+    case GET_SHIFTS_WITH_EMPLOYEES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        shiftsWithEmployees: action.payload,
+      };
+    case GET_SHIFTS_WITH_EMPLOYEES_FAILURE:
       return { ...state, loading: false };
     default:
       return state;

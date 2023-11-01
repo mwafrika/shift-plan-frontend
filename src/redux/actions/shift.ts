@@ -14,6 +14,9 @@ import {
   ASSIGN_SHIFT_START,
   ASSIGN_SHIFT_SUCCESS,
   ASSIGN_SHIFT_FAILURE,
+  GET_SHIFTS_WITH_EMPLOYEES_START,
+  GET_SHIFTS_WITH_EMPLOYEES_SUCCESS,
+  GET_SHIFTS_WITH_EMPLOYEES_FAILURE,
 } from "../actionTypes/shift";
 
 import { toast } from "react-toastify";
@@ -89,14 +92,27 @@ export const assignShift = (shift) => async (dispatch) => {
   }
 };
 
-// export const unassignShift = (shift) => async (dispatch) => {
-//   dispatch({ type: ASSIGN_SHIFT_START });
-//   try {
-//     const response = await shiftApi.unassignShift(shift);
-//     dispatch({ type: ASSIGN_SHIFT_SUCCESS, payload: response.data });
-//     toast.success("Shift unassigned successfully");
-//   } catch (error) {
-//     dispatch({ type: ASSIGN_SHIFT_FAILURE });
-//     toast.error("Error unassigning shift");
-//   }
-// };
+export const unassignShift = (shift) => async (dispatch) => {
+  dispatch({ type: ASSIGN_SHIFT_START });
+  try {
+    const response = await shiftApi.unassignShift(shift);
+    dispatch({ type: ASSIGN_SHIFT_SUCCESS, payload: response.data });
+    toast.success("Shift unassigned successfully");
+  } catch (error) {
+    dispatch({ type: ASSIGN_SHIFT_FAILURE });
+    toast.error("Error unassigning shift");
+  }
+};
+
+export const getShiftsWithEmployees = () => async (dispatch) => {
+  dispatch({ type: GET_SHIFTS_WITH_EMPLOYEES_START });
+  try {
+    const { data } = await shiftApi.getShiftsWithEmployees();
+    dispatch({
+      type: GET_SHIFTS_WITH_EMPLOYEES_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({ type: GET_SHIFTS_WITH_EMPLOYEES_FAILURE });
+  }
+};

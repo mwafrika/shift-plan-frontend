@@ -1,28 +1,19 @@
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import AdminRoutes from "./routes/admin.routes";
-import ManagerRoutes from "./routes/manager.routes";
-import EmployeeRoutes from "./routes/employee.routes";
-import SuperAdminRoutes from "./routes/superAdmin.routes";
 import Onboarding from "./pages/onboarding";
 import ResetPassword from "./pages/auth/reset-password/ResetPassword";
 import ConfirmPassword from "./pages/auth/reset-password/ConfirmPassword";
 import Login from "./pages/auth/login/LoginPage";
 import Signup from "./pages/auth/signup/index";
-
 import AdminDashboard from "./pages/admin/dashboard";
 import EmployeeDashboard from "./pages/employee/shifts";
-
 import DepartmentPage from "./pages/admin/departments";
 import SettingPage from "./pages/admin/settings";
-import CompanyPage from "./pages/admin/companies";
 import SettingEmployee from "./pages/employee/settings";
-
 import ManagerDashboard from "./pages/manager/dashboard";
 import ShiftPage from "./pages/manager/shifts";
 import SettingPageManager from "./pages/manager/settings";
 import AbsencePage from "./pages/manager/absences";
-
 import SuperAdminDashboard from "./pages/superAdmin/dashboard";
 import CompaniesPage from "./pages/superAdmin/companies";
 import SettingPageSuperAdmin from "./pages/superAdmin/settings";

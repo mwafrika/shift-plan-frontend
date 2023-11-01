@@ -45,7 +45,7 @@ const Topbar = ({ user, name }) => {
   console.log("notifications", notifications);
 
   return (
-    <nav className="bg-background h-[8%] border-[1px] border-secondary/40 py-2 px-6">
+    <nav className="bg-background border-[1px] border-secondary/40 py-2 px-6">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row items-center justify-center gap-2">
           <UserCircle size={36} className="cursor-pointer text-primary" />

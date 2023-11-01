@@ -1,73 +1,125 @@
-import React from "react";
-import employees from "./data";
+import React, { useState } from "react";
+import ShiftReport from "../../../components/report";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
-const ShiftList = () => {
+const ShiftList = ({ shiftData }) => {
+  const [expandedShift, setExpandedShift] = useState(null);
+
+  const toggleShiftDetails = (shiftId) => {
+    if (expandedShift === shiftId) {
+      setExpandedShift(null);
+    } else {
+      setExpandedShift(shiftId);
+    }
+  };
+
   return (
-    <table className="table p-5 overflow-auto md:overflow-visible md:table-fixed md:w-full sm:hidden">
-        <thead className="mx-5 text-white bg-primary w-full">
-          <tr className="w-full">
-            <th className=" text-[14px] text-blue font-semibold text-left pl-5 py-3 bg-primary-200 w-[20%]">
-              Employee
-            </th>
-            <th className=" text-[14px] text-blue font-semibold text-left pl-5 py-4 bg-primary-200">
-              Mond
-            </th>
-            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-4 bg-primary-200">
-              Tue
-            </th>
-            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-4 bg-primary-200">
-              Wed
-            </th>
-            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-4 bg-primary-200">
-              Thu
-            </th>
-            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-4 bg-primary-200">
-              Fri
-            </th>
-            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-4 bg-primary-200">
-              Sat
-            </th>
-            <th className="text-[14px] text-blue font-semibold text-left pl-5 py-4 bg-primary-200">
-              Sun
-            </th>
-            </tr>
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white border-separate">
+        <thead>
+          <tr className="bg-primary text-white">
+            <th className="w-1/5 px-3 py-3">Shift Name</th>
+            <th className="px-2 py-3">Assigned Date</th>
+            <th className="px-2 py-3">Start Time</th>
+            <th className="px-2 py-3">End Time</th>
+            <th className="px-2 py-3">Start Date</th>
+            <th className="px-2 py-3">End Date</th>
+          </tr>
         </thead>
-
         <tbody>
-        {employees.map((emp) => (
-      <tr 
-        key={emp.id}
-        className={`bg-primary ${emp.id % 2 === 0 ? 'bg-opacity-20' : 'bg-opacity-10'}`}
-      >
-      <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.employee}
-      </td>
-      <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.shift.mon?.date}<br />{emp.shift.mon?.start_time} - {emp.shift.mon?.end_time}
-      </td>
-      <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.shift.tue?.date}<br />{emp.shift.tue?.start_time} - {emp.shift.tue?.end_time}
-      </td>
-      <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.shift.wed?.date}<br />{emp.shift.wed?.start_time} - {emp.shift.wed?.end_time}
-      </td>
-      <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.shift.thu?.date}<br />{emp.shift.thu?.start_time} - {emp.shift.thu?.end_time}
-      </td>
-      <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.shift.fri?.date}<br />{emp.shift.fri?.start_time} - {emp.shift.fri?.end_time}
-      </td>
-      <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.shift.sat?.date}<br />{emp.shift.sat?.start_time} - {emp.shift.sat?.end_time}
-      </td>
-      <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-        {emp.shift.sun?.date}<br />{emp.shift.sun?.start_time} - {emp.shift.sun?.end_time}
-      </td>
-    </tr>
-  ))}
+          {shiftData.map((shift, index) => (
+            <React.Fragment key={shift?.id}>
+              <tr
+                className={`${
+                  index % 2 === 0
+                    ? "bg-primary/10 hover:bg-primary/20"
+                    : "bg-primary/20 hover:bg-primary/30"
+                } cursor-pointer`}
+                onClick={() => toggleShiftDetails(shift.id)}
+              >
+                <td className="px-2 py-2 text-center">{shift?.shiftName}</td>
+                <td className="px-2 py-2 text-center">
+                  {shift?.Users[0]?.EmployeeShift?.createdAt
+                    ? new Date(shift.Users[0].EmployeeShift.createdAt)
+                        .toLocaleDateString()
+                        .split("/")
+                        .join("-")
+                    : ""}
+                </td>
+                <td className="px-2 py-2 text-center">{shift?.startTime}</td>
+                <td className="px-2 py-2 text-center">{shift?.endTime}</td>
+                <td className="px-2 py-2 text-center">
+                  {shift?.Users[0]?.EmployeeShift?.startDate
+                    ? new Date(shift.Users[0].EmployeeShift.startDate)
+                        .toLocaleDateString()
+                        .split("/")
+                        .join("-")
+                    : ""}
+                </td>
+                <td className="px-2 py-2 flex justify-between text-center">
+                  {shift?.Users[0]?.EmployeeShift?.endDate
+                    ? new Date(shift.Users[0].EmployeeShift.endDate)
+                        .toLocaleDateString()
+                        .split("/")
+                        .join("-")
+                    : ""}
+
+                  <span
+                    className="px-2 py-2 cursor-pointer"
+                    onClick={() => toggleShiftDetails(shift.id)}
+                  >
+                    {expandedShift === shift.id ? (
+                      <BsChevronUp size={20} />
+                    ) : (
+                      <BsChevronDown size={20} />
+                    )}
+                  </span>
+                </td>
+              </tr>
+
+              {expandedShift === shift.id && (
+                <tr className="bg-primary/30">
+                  <td colSpan="6">
+                    <table className="min-w-full border border-primary">
+                      <thead className="bg-primary text-white">
+                        <tr className="flex justify-start items-start">
+                          <th className="px-5 py-3 w-1/4">Name</th>
+                          <th className="px-5 py-3 w-1/4">Email</th>
+                          <th className="px-5 py-3 w-1/4">Phone</th>
+                          <th className="px-5 py-3 w-1/4">Address</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {shift.Users.slice(1).map((user, userIndex) => (
+                          <tr
+                            key={user.id}
+                            className={`${
+                              userIndex % 2 === 0
+                                ? "bg-primary/5 hover-bg-primary/10"
+                                : "bg-primary/10 hover:bg-primary/20"
+                            } cursor-pointer  w-full flex justify-start`}
+                          >
+                            <td className="px-5 py-2 w-1/4">{user.name}</td>
+                            <td className="px-5 py-2 w-1/4">{user.email}</td>
+                            <td className="px-5 py-2 w-1/4">
+                              {user.phone || "N/A"}
+                            </td>
+                            <td className="px-5 py-2 w-1/4">
+                              {user.address || "N/A"}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              )}
+            </React.Fragment>
+          ))}
         </tbody>
       </table>
-  )
-}
+    </div>
+  );
+};
 
-export default ShiftList
+export default ShiftList;
