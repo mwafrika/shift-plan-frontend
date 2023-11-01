@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../../layout";
 import Button from "../../../components/button";
 import { requestForm } from "../forms/AbsenceRequest";
@@ -10,6 +10,11 @@ const ShiftPage = () => {
   const toggleFormPop = () => {
     setIsOpen(!isOpen);
   };
+  
+  useEffect(() => {
+
+  });
+
   return (
     <Layout user="Employee" username="OKolongo">
       {isOpen && requestForm({ handleClose: toggleFormPop })}

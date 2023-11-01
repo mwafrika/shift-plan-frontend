@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../../components/input";
 import Button from "../../../components/button";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { resetPassword } from "../../../redux/actions/auth";
 
 function ConfirmPassword() {
   const [input, setInput] = useState({
@@ -14,13 +17,37 @@ function ConfirmPassword() {
     password: "",
     confirmPassword: "",
   });
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate()
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setInput((prev) => ({ ...prev, [name]: value }));
   };
-  console.log(input);
-  const validateInput = (e) => {};
+  const handlePassword = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+
+    if (!input.password) {
+      setError((prev) => ({ ...prev, password: "Please enter your password!" }));
+    } else if (!input.confirmPassword) {
+      setError((prev) => ({
+        ...prev,
+        confirmPassword: "Please enter your password!",
+      }));
+    } else if (input.password !== input.confirmPassword) {
+      setError((prev) => ({
+        ...prev,
+        confirmPassword: "Password does not match!",
+      }));
+    } else {
+      setError((prev) => ({ ...prev, [name]: "" }));
+      console.log(input);
+      // dispatch(resetPassword(input, navigate) as any);
+    }
+  }
+
+  // const validateInput = (e) => {};
   return (
     <div className="flex w-full">
       <div className="bg-[#032D7C] w-1/2 h-[100vh]  ">
@@ -42,7 +69,7 @@ function ConfirmPassword() {
           </div>
           <div className="mb-10" />
 
-          <form>
+          <form onSubmit={handlePassword}>
             <div className="input-container">
               <Input
                 placeholder="New password"

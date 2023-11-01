@@ -1,9 +1,13 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react";
 import Input from "../../../components/input";
 import Button from "../../../components/button";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { forgotPassword } from "../../../redux/actions/auth";
 
 function ResetPassword() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const [errors, setErrors] = React.useState({
     email: "",
@@ -15,10 +19,9 @@ function ResetPassword() {
       setErrors({ email: "Please enter your email address!" });
     } else {
       setErrors({ email: "" });
+      dispatch(forgotPassword({ email}, navigate) as any);
     }
   };
-
-  console.log("Reset Password", [email, setEmail]);
 
   return (
     <div className="flex w-full">

@@ -6,6 +6,12 @@ import {
   SIGNIN_FAILURE,
   SIGNIN_REQUEST,
   SIGNIN_SUCCESS,
+  FORGET_PASSWORD_REQUEST,
+  FORGET_PASSWORD_SUCCESS,
+  FORGET_PASSWORD_FAILURE,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
 } from "../../actionTypes/auth";
 
 const initialState = {
@@ -51,10 +57,43 @@ const authReducer = (state = initialState, action) => {
         error: action.payload,
         loading: false,
       };
-
-   
+    case FORGET_PASSWORD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case  FORGET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+      };
+    case FORGET_PASSWORD_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+    case RESET_PASSWORD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+      };
+    case RESET_PASSWORD_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+      
     default:
-      return state;
+    return state;
   }
 };
 

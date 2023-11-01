@@ -15,12 +15,12 @@ export const logout = async () => {
   return response;
 };
 
-export const ForgetPassword = async () => {
-  const response = await authAxios.post("/auth/forget-password");
+export const forgetPassword = async (data) => {
+  const response = await authAxios.post("/auth/forget-password", data);
   return response;
 };
 
-export const ResetPassword = async () => {
-  const response = await authAxios.post("/auth/reset-password");
+export const ResetPassword = async (data) => {
+  const response = await authAxios.post("/auth/reset-password", data);
   return response;
 };
