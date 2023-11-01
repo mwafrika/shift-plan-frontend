@@ -7,6 +7,12 @@ import {
   SIGNIN_FAILURE,
   SIGNIN_REQUEST,
   SIGNIN_SUCCESS,
+  FORGET_PASSWORD_FAILURE,
+  FORGET_PASSWORD_REQUEST,
+  FORGET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
 } from "../actionTypes/auth";
 
 export const signup = (userData, navigate, reset) => (dispatch) => {
@@ -62,3 +68,56 @@ export const signin = (userData, navigate) => (dispatch) => {
       );
     });
 };
+
+export const forgotPassword = (userData, navigate) => (dispatch) => {
+  dispatch({
+    type: FORGET_PASSWORD_REQUEST,
+  });
+  userApi
+  .forgetPassword(userData)
+  .then((response) => {
+    const { data } = response?.data;
+    console.log(response, "Response FFFFFF", data.message);
+    if (response?.status === 200) {
+      dispatch({
+        type: FORGET_PASSWORD_SUCCESS,
+        payload: data
+      })
+      navigate("/reset-password");
+      toast.success(data?.message);
+    }
+  })
+  .catch((error) => {
+    dispatch({
+      type: FORGET_PASSWORD_FAILURE,
+      payload: error.response.data.message || error.response.data.error,
+    });
+    toast.error(error.response.data.message || error.response.data.error);
+  });
+}
+
+export const resetPassword = (userData, navigate) => (dispatch) => {
+  dispatch({
+    type: RESET_PASSWORD_REQUEST,
+  });
+  userApi
+  .ResetPassword(userData)
+  .then((response) => {
+    const { data } = response?.data;
+    if (response?.status === 200) {
+      dispatch({
+        type: RESET_PASSWORD_SUCCESS,
+        payload: data
+      })
+      navigate("/login");
+      toast.success(response?.data?.message);
+    }
+  })
+  .catch((error) => {
+    dispatch({
+      type: RESET_PASSWORD_FAILURE,
+      payload: error.response.data.message || error.response.data.error,
+    });
+    toast.error(error.response.data.message || error.response.data.error);
+  });
+}

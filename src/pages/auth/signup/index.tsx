@@ -31,7 +31,8 @@ const Signup: React.FC = () => {
   };
 
   const submit: SubmitHandler<SignupData> = (data) => {
-    dispatch(signup(data, navigate, reset) as any);
+    dispatch(signup({data}, navigate, reset) as any);
+    console.log(data);
   };
 
   const name = useWatch({
