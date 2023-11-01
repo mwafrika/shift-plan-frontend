@@ -1,5 +1,5 @@
 import React from "react";
-import { Home, Cog, OfficeBuilding } from "heroicons-react";
+import { Home, Cog, OfficeBuilding, Sun, UserRemove } from "heroicons-react";
 
 export const menusAdmin = [
   {
@@ -48,6 +48,12 @@ export const menusManager = [
     value: "Shifts",
     link: "/manager/shifts",
     icon: <OfficeBuilding width={22} className="mr-4" />,
+    active: false,
+  },
+  {
+    value: "Absences",
+    link: "/manager/absences",
+    icon: <UserRemove width={22} className="mr-4" />,
     active: false,
   },
   {

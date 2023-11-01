@@ -46,9 +46,9 @@ export const signin = (userData, navigate) => (dispatch) => {
           type: SIGNIN_SUCCESS,
           payload: data,
         });
-
         localStorage.setItem("user", JSON.stringify(data));
         navigate(`/${data.user.role.name}`);
+        window.location.reload();
         toast.success(response.data.message);
       }
     })

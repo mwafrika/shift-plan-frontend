@@ -67,7 +67,7 @@ const App = () => {
             <Route index element={<ManagerDashboard />} />
             <Route path="shifts" element={<ShiftPage />} />
             <Route path="settings" element={<SettingPageManager />} />
-            <Route path="absence" element={<AbsencePage />} />
+            <Route path="absences" element={<AbsencePage />} />
           </Route>
         )}
 
