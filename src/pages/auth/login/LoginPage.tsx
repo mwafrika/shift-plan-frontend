@@ -21,10 +21,7 @@ function LoginPage() {
     event.preventDefault();
     dispatch(signin(user, navigate) as any);
   };
-  console.log(
-    "This is the decoded user",
-    JSON.parse(localStorage.getItem("user") as any)?.user?.role?.name,
-  );
+
   return (
     <div className="flex w-full">
       <div className="bg-[#032D7C] w-1/2 h-[100vh]  ">

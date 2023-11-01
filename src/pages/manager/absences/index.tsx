@@ -20,7 +20,7 @@ const AbsencePage = () => {
               label1={"All"}
               label2={"Employees"}
               label3={"Shifts"}
-              total={0}
+              total={70}
             />
           </div>
         </div>

@@ -8,7 +8,10 @@ import { fetchRoles } from "../../../redux/actions/role";
 import { togglePopup } from "../../../redux/actions/form";
 import { getDepartments } from "../../../redux/actions/department";
 
-const EditEmployeeForm = ({ closeModal }) => {
+interface Props {
+  closeModal?: () => void;
+}
+const EditEmployeeForm = ({ closeModal }: Props) => {
   // const { popup } = useSelector((state) => state.form);
   const { user, roles, users, departments } = useSelector((state) => ({
     user: state?.users?.user,

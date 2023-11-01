@@ -37,26 +37,6 @@ const App = () => {
     setUser(userInfo);
   }, []);
 
-  // let roleRoutes;
-
-  // const redirectToDashboard = () => {
-  // switch (user?.role?.name) {
-  //   case "admin":
-  //     roleRoutes = <AdminRoutes />;
-  //     break;
-  //   case "manager":
-  //     roleRoutes = <ManagerRoutes />;
-  //     break;
-  //   case "employee":
-  //     roleRoutes = <EmployeeRoutes />;
-  //     break;
-  //   case "superAdmin":
-  //     roleRoutes = <SuperAdminRoutes />;
-  //     break;
-  //   default:
-  //     roleRoutes = <AdminRoutes />;
-  // }
-
   return (
     <>
       <Routes>
@@ -65,34 +45,39 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forget-password" element={<ResetPassword />} />
         <Route path="/reset-password" element={<ConfirmPassword />} />
-        {/* <Route path={`/${user?.role?.name}`} element={roleRoutes} /> */}
 
-        <Route path={`/${user?.role?.name}`}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="departments" element={<DepartmentPage />} />
-          <Route path="companies" element={<CompanyPage />} />
-          <Route path="settings" element={<SettingPage />} />
-        </Route>
+        {user?.role?.name === "admin" && (
+          <Route path="/admin">
+            <Route index element={<AdminDashboard />} />
+            <Route path="departments" element={<DepartmentPage />} />
+            <Route path="settings" element={<SettingPage />} />
+          </Route>
+        )}
 
-        <Route path={`/${user?.role?.name}`}>
-          <Route index element={<SuperAdminDashboard />} />
-          <Route path="companies" element={<CompaniesPage />} />
-          <Route path="settings" element={<SettingPageSuperAdmin />} />
-        </Route>
+        {user?.role?.name === "superAdmin" && (
+          <Route path="/superAdmin">
+            <Route index element={<SuperAdminDashboard />} />
+            <Route path="companies" element={<CompaniesPage />} />
+            <Route path="settings" element={<SettingPageSuperAdmin />} />
+          </Route>
+        )}
 
-        <Route path={`/${user?.role?.name}`}>
-          <Route index element={<ManagerDashboard />} />
-          <Route path="shifts" element={<ShiftPage />} />
-          <Route path="settings" element={<SettingPageManager />} />
-          <Route path="absence" element={<AbsencePage />} />
-        </Route>
+        {user?.role?.name === "manager" && (
+          <Route path="/manager">
+            <Route index element={<ManagerDashboard />} />
+            <Route path="shifts" element={<ShiftPage />} />
+            <Route path="settings" element={<SettingPageManager />} />
+            <Route path="absence" element={<AbsencePage />} />
+          </Route>
+        )}
 
-        <Route path={`/${user?.role?.name}`}>
-          <Route index element={<EmployeeDashboard />} />
-          <Route path="shift" element={<EmployeeDashboard />} />
-          <Route path="settings" element={<SettingEmployee />} />
-        </Route>
-
+        {user?.role?.name === "employee" && (
+          <Route path="/employee">
+            <Route index element={<EmployeeDashboard />} />
+            <Route path="shift" element={<EmployeeDashboard />} />
+            <Route path="settings" element={<SettingEmployee />} />
+          </Route>
+        )}
         <Route path="*" element={<Login />} />
       </Routes>
     </>

@@ -7,7 +7,6 @@ import {
   SIGNIN_FAILURE,
   SIGNIN_REQUEST,
   SIGNIN_SUCCESS,
-
 } from "../actionTypes/auth";
 
 export const signup = (userData, navigate, reset) => (dispatch) => {
@@ -56,9 +55,10 @@ export const signin = (userData, navigate) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: SIGNIN_FAILURE,
-        payload: error.response.data.message || error.response.data.error,
+        payload: error?.response?.data?.message || error?.response?.data?.error,
       });
-      toast.error(error.response.data.message || error.response.data.error);
+      toast.error(
+        error?.response?.data?.message || error?.response?.data?.error,
+      );
     });
 };
-

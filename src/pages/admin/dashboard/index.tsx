@@ -15,6 +15,7 @@ import { getDepartments } from "../../../redux/actions/department";
 import { getUserProfile } from "../../../redux/actions/setting";
 
 const AdminDashboard = () => {
+  // use the Props
   const [showForm, setShowForm] = React.useState(false);
   const dispatch = useDispatch();
   const { users, user, filteredUsers } = useSelector((state) => state.users);

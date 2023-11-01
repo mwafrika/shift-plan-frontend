@@ -12,8 +12,6 @@ const Sidebar = () => {
   const userInfo = JSON.parse(localStorage.getItem("user") as any)?.user;
   const [user, setUser] = useState(userInfo || {});
 
-  console.log(userInfo, "typeof userInfo?.token", user);
-
   useEffect(() => {
     setUser(userInfo);
   }, []);

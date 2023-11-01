@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Input from "../../../components/input";
 import SelectInput from "../../../components/select";
+import MultiSelect from "../../../components/multiSelect";
 import Button from "../../../components/button";
 import { addUser, getUsers } from "../../../redux/actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { fetchRoles } from "../../../redux/actions/role";
 import { getDepartments } from "../../../redux/actions/department";
+import Select from "react-tailwindcss-select";
 
 interface Props {
   showForm?: boolean;
@@ -42,7 +44,7 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
     setShowForm(!showForm);
   };
 
-  console.log(newUser, "new user data");
+
 
   return (
     <form className="flex flex-col items-start" onSubmit={handleSubmit}>
@@ -55,7 +57,6 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
         value={newUser.name}
         onChange={handleChange}
       />
-
       <Input
         type="email"
         name="email"
@@ -65,7 +66,6 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
         value={newUser.email}
         onChange={handleChange}
       />
-
       <SelectInput
         label="Department"
         placeholder="Department"
@@ -80,7 +80,6 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
         }
         value={newUser.departmentId}
       />
-
       <SelectInput
         label="Roles"
         placeholder="Roles"
@@ -93,7 +92,7 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
             label: role.name,
           }))
         }
-        value={newUser.departmentId}
+        value={newUser?.departmentId}
       />
 
       <div className="flex flex-row gap-2">

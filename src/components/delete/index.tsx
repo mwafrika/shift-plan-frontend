@@ -4,10 +4,10 @@ import Dialog from "../dialog";
 import Button from "../button";
 
 type PropTypes = {
-  id: string;
-  title: string;
-  description: string;
-  onClick: () => void;
+  id?: string;
+  title?: string;
+  description?: string;
+  onClick?: () => void;
 };
 
 const Delete: React.FC<PropTypes> = ({ title, description, onClick }) => {
