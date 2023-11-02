@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../../layout";
 import { FaUser } from "react-icons/fa";
 import { editSettings } from "../forms/edit";
@@ -8,25 +8,34 @@ import {
   Mail,
   Phone,
 } from "heroicons-react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserProfile } from "../../../redux/actions/setting";
 
 const SettingPage = () => {
   const [isOpened, setIsOpened] = useState(false);
+  const dispatch = useDispatch();
+
+  const userProfile = useSelector((state) => state?.setting?.user);
+  useEffect(() => {
+    dispatch(getUserProfile() as any);
+  }, [dispatch])
+  // console.log("my profile info", userProfile, "my Profile:", userProfile?.name);
 
   const handleEditForm = () => {
     setIsOpened(!isOpened);
   };
 
   return (
-    <Layout user="EMployee" username="Okolongo">
+    <Layout user={userProfile?.role?.name.toUpperCase()} username={userProfile?.name}>
       {isOpened && editSettings({ handleClose: handleEditForm })}
 
-      <div className="flex justify-between p-4 gap-[2rem] bg-background h-[90vh]">
+      <div key={userProfile.id} className="flex justify-between p-4 gap-[2rem] bg-background h-[90vh]">
         <div className="flex flex-col items-center gap-[3rem] w-[30%]">
           <div className="flex flex-col items-center bg-secondary/5 rounded-md p-6">
             <div className="bg-secondary p-5 rounded-full">
               <FaUser className="text-white text-[5rem]" />
             </div>
-            <h1>Employee Okolongo</h1>
+            <h1 className="mt-4">{userProfile?.name}</h1>
           </div>
         </div>
 
@@ -47,7 +56,7 @@ const SettingPage = () => {
 
               <div className="flex flex-col gap-2">
                 <p>Email</p>
-                <p className="text-secondary">adminokolongo@gmail.com</p>
+                <p className="text-secondary">{userProfile?.email}</p>
               </div>
             </div>
 
@@ -56,7 +65,7 @@ const SettingPage = () => {
 
               <div className="flex flex-col gap-2">
                 <p>Phone</p>
-                <p className="text-secondary">+2450683231</p>
+                <p className="text-secondary">{userProfile?.phone}</p>
               </div>
             </div>
 
@@ -65,7 +74,7 @@ const SettingPage = () => {
 
               <div className="flex flex-col gap-2">
                 <p>City & Street</p>
-                <p className="text-secondary">adminokolongo@gmail.com</p>
+                <p className="text-secondary">{userProfile?.address}</p>
               </div>
             </div>
 
@@ -74,7 +83,7 @@ const SettingPage = () => {
 
               <div className="flex flex-col gap-2">
                 <p>Country</p>
-                <p className="text-secondary">Lesotho</p>
+                <p className="text-secondary">{userProfile?.country}</p>
               </div>
             </div>
           </div>

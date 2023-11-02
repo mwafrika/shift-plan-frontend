@@ -22,7 +22,7 @@ const App = () => {
   const userInfo = JSON.parse(localStorage.getItem("user"))?.user;
   const [user, setUser] = useState(userInfo || {});
 
-  console.log(userInfo, "typeof userInfo?.token", user);
+  // console.log(userInfo, "typeof userInfo?.token", user);
 
   useEffect(() => {
     setUser(userInfo);
