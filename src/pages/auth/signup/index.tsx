@@ -31,8 +31,8 @@ const Signup: React.FC = () => {
   };
 
   const submit: SubmitHandler<SignupData> = (data) => {
-    dispatch(signup({data}, navigate, reset) as any);
-    console.log(data);
+    dispatch(signup(data, navigate, reset) as any);
+    console.log(data, "Data tat atata ta");
   };
 
   const name = useWatch({
@@ -71,6 +71,8 @@ const Signup: React.FC = () => {
     defaultValue: "",
   });
 
+  console.log(name, email, password, companyName, companyEmail, companyAddress);
+
   const renderStepContent = () => {
     switch (activeStep) {
       case 0:
@@ -79,7 +81,7 @@ const Signup: React.FC = () => {
             <input
               type="text"
               placeholder="Full name"
-              {...formMethods.register("name", { required: true })}
+              {...formMethods.register("name")}
               value={name}
               className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
               autoComplete="off"
@@ -87,7 +89,7 @@ const Signup: React.FC = () => {
             <input
               type="email"
               placeholder="Email"
-              {...formMethods.register("email", { required: true })}
+              {...formMethods.register("email")}
               value={email}
               className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
               autoComplete="off"
@@ -95,7 +97,7 @@ const Signup: React.FC = () => {
             <input
               type="password"
               placeholder="Password"
-              {...formMethods.register("password", { required: true })}
+              {...formMethods.register("password")}
               value={password}
               className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
               autoComplete="off"
@@ -108,7 +110,7 @@ const Signup: React.FC = () => {
             <input
               type="text"
               placeholder="Company name"
-              {...formMethods.register("companyName", { required: true })}
+              {...formMethods.register("companyName")}
               value={companyName}
               className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
               autoComplete="off"
@@ -116,7 +118,7 @@ const Signup: React.FC = () => {
             <input
               type="email"
               placeholder="Company email"
-              {...formMethods.register("companyEmail", { required: true })}
+              {...formMethods.register("companyEmail")}
               value={companyEmail}
               // onChange={formMethods.register("companyEmail")}
               className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white shadow-md border border-primary/20"
@@ -125,7 +127,7 @@ const Signup: React.FC = () => {
             <input
               type="text"
               placeholder="Company address"
-              {...formMethods.register("companyAddress", { required: true })}
+              {...formMethods.register("companyAddress")}
               value={companyAddress}
               className="text-sm p-3 w-full rounded-[10px] focus:outline-0 bg-white border-primary/20 shadow-md border"
               autoComplete="off"

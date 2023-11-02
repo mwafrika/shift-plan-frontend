@@ -18,8 +18,8 @@ import {
 export const signup = (userData, navigate, reset) => (dispatch) => {
   userApi
     .signup(userData)
-    .then((response) => {
-      const { data } = response.data;
+    .then(async (response) => {
+      const { data } = await response.data;
       console.log(response, "Response FFFFFF", response.data.message);
 
       if (response.status === 201) {
@@ -74,50 +74,50 @@ export const forgotPassword = (userData, navigate) => (dispatch) => {
     type: FORGET_PASSWORD_REQUEST,
   });
   userApi
-  .forgetPassword(userData)
-  .then((response) => {
-    const { data } = response?.data;
-    console.log(response, "Response FFFFFF", data.message);
-    if (response?.status === 200) {
+    .forgetPassword(userData)
+    .then((response) => {
+      const { data } = response?.data;
+      console.log(response, "Response FFFFFF", data.message);
+      if (response?.status === 200) {
+        dispatch({
+          type: FORGET_PASSWORD_SUCCESS,
+          payload: data,
+        });
+        navigate("/reset-password");
+        toast.success(data?.message);
+      }
+    })
+    .catch((error) => {
       dispatch({
-        type: FORGET_PASSWORD_SUCCESS,
-        payload: data
-      })
-      navigate("/reset-password");
-      toast.success(data?.message);
-    }
-  })
-  .catch((error) => {
-    dispatch({
-      type: FORGET_PASSWORD_FAILURE,
-      payload: error.response.data.message || error.response.data.error,
+        type: FORGET_PASSWORD_FAILURE,
+        payload: error.response.data.message || error.response.data.error,
+      });
+      toast.error(error.response.data.message || error.response.data.error);
     });
-    toast.error(error.response.data.message || error.response.data.error);
-  });
-}
+};
 
 export const resetPassword = (userData, navigate) => (dispatch) => {
   dispatch({
     type: RESET_PASSWORD_REQUEST,
   });
   userApi
-  .ResetPassword(userData)
-  .then((response) => {
-    const { data } = response?.data;
-    if (response?.status === 200) {
+    .ResetPassword(userData)
+    .then((response) => {
+      const { data } = response?.data;
+      if (response?.status === 200) {
+        dispatch({
+          type: RESET_PASSWORD_SUCCESS,
+          payload: data,
+        });
+        navigate("/login");
+        toast.success(response?.data?.message);
+      }
+    })
+    .catch((error) => {
       dispatch({
-        type: RESET_PASSWORD_SUCCESS,
-        payload: data
-      })
-      navigate("/login");
-      toast.success(response?.data?.message);
-    }
-  })
-  .catch((error) => {
-    dispatch({
-      type: RESET_PASSWORD_FAILURE,
-      payload: error.response.data.message || error.response.data.error,
+        type: RESET_PASSWORD_FAILURE,
+        payload: error.response.data.message || error.response.data.error,
+      });
+      toast.error(error.response.data.message || error.response.data.error);
     });
-    toast.error(error.response.data.message || error.response.data.error);
-  });
-}
+};
