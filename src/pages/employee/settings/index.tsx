@@ -26,10 +26,10 @@ const SettingPage = () => {
   };
 
   return (
-    <Layout user={userProfile?.role?.name.toUpperCase()} username={userProfile?.name}>
+    <Layout  key={userProfile?.id}  user={userProfile?.role?.name.toUpperCase()} username={userProfile?.name}>
       {isOpened && editSettings({ handleClose: handleEditForm })}
 
-      <div key={userProfile.id} className="flex justify-between p-4 gap-[2rem] bg-background h-[90vh]">
+      <div className="flex justify-between p-4 gap-[2rem] bg-background h-[90vh]">
         <div className="flex flex-col items-center gap-[3rem] w-[30%]">
           <div className="flex flex-col items-center bg-secondary/5 rounded-md p-6">
             <div className="bg-secondary p-5 rounded-full">
