@@ -34,7 +34,7 @@ function LoginPage() {
 
       <div className="bg-[#EEEEEE] w-1/2">
         <div className="w-1/5 p-2 ">
-          <img src="/logo.jpg" alt="Logo" />
+          <img src="/logo.png" alt="Logo" />
         </div>
 
         <div className="flex flex-col justify-center mt-[7rem] ml-[12rem] w-[50%]">
