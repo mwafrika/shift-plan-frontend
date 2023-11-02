@@ -24,8 +24,6 @@ const Onboarding = () => {
         </div>
       </div>
 
-      <div className="w-20 h-[99%] bg-primary transform rotate-[-8deg] rounded-tl-[36px] mr-[-40px]"></div>
-
       <div className="bg-primary w-[50%] h-screen">
         <img
           src="/onboarding.png"
