@@ -23,12 +23,16 @@ import {
   GET_SHIFTS_WITH_EMPLOYEES_START,
   GET_SHIFTS_WITH_EMPLOYEES_SUCCESS,
   GET_SHIFTS_WITH_EMPLOYEES_FAILURE,
+  EXPORT_SHIFTS_START,
+  EXPORT_SHIFTS_SUCCESS,
+  EXPORT_SHIFTS_FAILURE,
 } from "../actionTypes/shift";
 
 const initialState = {
   shifts: [],
   userShiftAssignments: [],
   shiftsWithEmployees: [],
+  exportedShifts: [],
   loading: false,
   message: "",
 };
@@ -111,6 +115,16 @@ const shiftReducer = (state = initialState, action) => {
         shiftsWithEmployees: action.payload,
       };
     case GET_SHIFTS_WITH_EMPLOYEES_FAILURE:
+      return { ...state, loading: false };
+    case EXPORT_SHIFTS_START:
+      return { ...state, loading: true };
+    case EXPORT_SHIFTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        exportedShifts: action.payload,
+      };
+    case EXPORT_SHIFTS_FAILURE:
       return { ...state, loading: false };
     default:
       return state;

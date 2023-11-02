@@ -6,61 +6,82 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 const PdfReportGenerator = ({ data }) => {
   const generatePDF = () => {
     const pdf = new jsPDF({
-      orientation: "p",
+      orientation: "l",
       unit: "mm",
-      format: "a4",
+      format: "a3",
       putOnlyUsedFonts: true,
     });
 
-    const columns = [
-      "Employee Name",
-      "Shift Name",
-      "Assigned Date",
-      "Start Time",
-      "End Time",
-      "Start Date",
-      "End Date",
-    ];
-    const rows = data.map((item) => [
-      item.employee,
-      item.shift.name,
-      item.shift.assignedDate,
-      item.shift.startTime,
-      item.shift.endTime,
-      item.shift.startDate,
-      item.shift.endDate,
-    ]);
-    // Set page size and orientation (portrait or landscape)
+    data.forEach((shift, index) => {
+      const columns = [
+        "Employee Name",
+        "Email",
+        "Phone",
+        "Shift Name",
+        "Start Time",
+        "End Time",
+        "Start Date",
+        "End Date",
+      ];
 
-    pdf.autoTable(columns, rows, {
-      startY: 70, // Adjust the vertical position for the table
-      theme: "grid",
-      styles: {
-        font: "times",
-        halign: "center",
-        cellPadding: 3.5,
-        lineWidth: 0.5,
-        lineColor: [0, 0, 0],
-        textColor: [0, 0, 0],
-      },
-      headStyles: {
-        textColor: [0, 0, 0],
-        fontStyle: "normal",
-        lineWidth: 0.5,
-        lineColor: [0, 0, 0],
-        fillColor: [166, 204, 247],
-      },
-      alternateRowStyles: {
-        fillColor: [212, 212, 212],
-        textColor: [0, 0, 0],
-        lineWidth: 0.5,
-        lineColor: [0, 0, 0],
-      },
-      rowStyles: {
-        lineWidth: 0.5,
-        lineColor: [0, 0, 0],
-      },
-      tableLineColor: [0, 0, 0],
+      const rows = [];
+
+      if (index > 0) {
+        pdf.addPage();
+      }
+
+      pdf.setFontSize(14);
+      pdf.text("Shift Name: " + shift.shiftName, 20, 10);
+      pdf.setFontSize(12);
+      pdf.text("Company: ShiftWise Solutions", 20, 20);
+      pdf.text("Report Date: " + new Date().toLocaleDateString(), 20, 30);
+
+      shift.Users.forEach((user) => {
+        const row = [
+          user.name,
+          user.email,
+          user.phone || "N/A",
+          shift.shiftName,
+          shift.startTime,
+          shift.endTime,
+          user.EmployeeShift?.startDate,
+          user.EmployeeShift?.endDate,
+        ];
+        rows.push(row);
+      });
+
+      const startY = 50;
+
+      pdf.autoTable(columns, rows, {
+        startY: startY,
+        theme: "grid",
+        styles: {
+          font: "times",
+          halign: "center",
+          cellPadding: 3.5,
+          lineWidth: 0.5,
+          lineColor: [0, 0, 0],
+          textColor: [0, 0, 0],
+        },
+        headStyles: {
+          textColor: [0, 0, 0],
+          fontStyle: "normal",
+          lineWidth: 0.5,
+          lineColor: [0, 0, 0],
+          fillColor: [166, 204, 247],
+        },
+        alternateRowStyles: {
+          fillColor: [212, 212, 212],
+          textColor: [0, 0, 0],
+          lineWidth: 0.5,
+          lineColor: [0, 0, 0],
+        },
+        rowStyles: {
+          lineWidth: 0.5,
+          lineColor: [0, 0, 0],
+        },
+        tableLineColor: [0, 0, 0],
+      });
     });
 
     const base64 = pdf.output("datauristring");
@@ -69,24 +90,19 @@ const PdfReportGenerator = ({ data }) => {
       "",
     );
 
-    // Convert base64 to Uint8Array
     const uint8Array = new Uint8Array(
       atob(dataUri)
         .split("")
         .map((c) => c.charCodeAt(0)),
     );
 
-    // Create a blob from Uint8Array
     const blob = new Blob([uint8Array], { type: "application/pdf" });
 
-    // Generate URL for the blob
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = "shift_report.pdf";
     a.click();
-
-    // window.open(url);
   };
 
   return (

@@ -1,52 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { assignShift, getShifts } from "../../../redux/actions/shift";
+import { assignShift, exportShifts } from "../../../redux/actions/shift";
 import { getUsers } from "../../../redux/actions/users";
 import { getUserProfile } from "../../../redux/actions/setting";
 import Input from "../../../components/input";
 import Button from "../../../components/button";
+import PdfReportGenerator from "../../../components/report";
 
 interface Props {
   handleClose?: () => void;
+  handleShowExport?: () => void;
 }
 
-const ExportData = ({ handleClose }: Props) => {
-  const dispatch = useDispatch();
-  const { userShiftAssignments, shifts } = useSelector(
-    (state: any) => state.shifts,
-  );
-  const { users } = useSelector((state: any) => state?.users);
-
-  // Component state
+const ExportData = ({ handleShowExport }: Props) => {
   const [newShift, setNewShift] = useState({
     startDate: "",
     endDate: "",
   });
 
-  // useEffect for data fetching
-  useEffect(() => {
-    dispatch(getUsers() as any);
-    dispatch(getShifts() as any);
-    dispatch(getUserProfile() as any);
-  }, [dispatch]);
+  const { exportedShifts } = useSelector((state: any) => state.shifts);
+  const dispatch = useDispatch();
 
   // Event handlers
   const handleChange = (e) => {
     setNewShift((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handlePdfExport = () => {
+    return <PdfReportGenerator data={exportedShifts} />;
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setNewShift((prev: any) => ({
-      ...prev,
-      userIDs: allIDs,
-    }));
-    dispatch(assignShift(newShift) as any);
-    handleClose();
+    dispatch(exportShifts(newShift.startDate, newShift.endDate) as any);
+    handlePdfExport();
+    handleShowExport();
   };
 
+  console.log(exportedShifts, "exportted shifts");
+
   return (
-    <form className="flex flex-col items-start">
+    <form className="flex flex-col items-start" onSubmit={handleSubmit}>
       <Input
         type="date"
         name="startDate"
@@ -75,7 +68,6 @@ const ExportData = ({ handleClose }: Props) => {
           type="submit"
           label="Save"
           width="bg-secondary text-white w-[100px] rounded-[5px]"
-          onClick={handleSubmit}
         />
       </div>
     </form>

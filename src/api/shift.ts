@@ -39,3 +39,10 @@ export const getShiftsWithEmployees = async () => {
   const { data } = await authAxios.get("/shifts/employees");
   return data;
 };
+
+export const exportShifts = async (startDate, endDate) => {
+  const { data } = await authAxios.get(
+    `/shifts/employees?startDate=${startDate}&endDate=${endDate}`,
+  );
+  return data;
+};

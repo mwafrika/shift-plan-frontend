@@ -17,6 +17,9 @@ import {
   GET_SHIFTS_WITH_EMPLOYEES_START,
   GET_SHIFTS_WITH_EMPLOYEES_SUCCESS,
   GET_SHIFTS_WITH_EMPLOYEES_FAILURE,
+  EXPORT_SHIFTS_START,
+  EXPORT_SHIFTS_SUCCESS,
+  EXPORT_SHIFTS_FAILURE,
 } from "../actionTypes/shift";
 
 import { toast } from "react-toastify";
@@ -114,5 +117,17 @@ export const getShiftsWithEmployees = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({ type: GET_SHIFTS_WITH_EMPLOYEES_FAILURE });
+  }
+};
+
+export const exportShifts = (startDate, endDate) => async (dispatch) => {
+  dispatch({ type: EXPORT_SHIFTS_START });
+  try {
+    const response = await shiftApi.exportShifts(startDate, endDate);
+    dispatch({ type: EXPORT_SHIFTS_SUCCESS, payload: response.data });
+    toast.success("Shifts exported successfully");
+  } catch (error) {
+    dispatch({ type: EXPORT_SHIFTS_FAILURE });
+    toast.error("Error exporting shifts");
   }
 };
