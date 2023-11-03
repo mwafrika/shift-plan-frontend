@@ -33,7 +33,7 @@ const PdfReportGenerator = ({ data }) => {
       pdf.setFontSize(14);
       pdf.text("Shift Name: " + shift.shiftName, 20, 10);
       pdf.setFontSize(12);
-      pdf.text("Company: ShiftWise Solutions", 20, 20);
+      pdf.text("Company: Shift Planner", 20, 20);
       pdf.text("Report Date: " + new Date().toLocaleDateString(), 20, 30);
 
       shift.Users.forEach((user) => {

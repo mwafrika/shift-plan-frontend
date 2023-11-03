@@ -1,21 +1,24 @@
-import React, { useState } from "react";
-import ShiftReport from "../../../components/report";
+import React, { useEffect, useState } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { getShiftsWithEmployees } from "../../../redux/actions/shift";
+import { useDispatch } from "react-redux";
 
 const ShiftList = ({ shiftData }) => {
   const [expandedShift, setExpandedShift] = useState(null);
+  const dispatch = useDispatch();
 
   const toggleShiftDetails = (shiftId) => {
     if (expandedShift === shiftId) {
       setExpandedShift(null);
     } else {
       setExpandedShift(shiftId);
+      dispatch(getShiftsWithEmployees() as any);
     }
   };
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border-separate">
+      <table className="min-w-full bg-white border-separate ">
         <thead>
           <tr className="bg-primary text-white">
             <th className="w-1/5 px-3 py-3">Shift Name</th>
@@ -83,10 +86,11 @@ const ShiftList = ({ shiftData }) => {
                     <table className="min-w-full border border-primary">
                       <thead className="bg-primary text-white">
                         <tr className="flex justify-start items-start">
-                          <th className="px-5 py-3 w-1/4">Name</th>
-                          <th className="px-5 py-3 w-1/4">Email</th>
-                          <th className="px-5 py-3 w-1/4">Phone</th>
-                          <th className="px-5 py-3 w-1/4">Address</th>
+                          <th className="px-5 py-3 w-1/5">Name</th>
+                          <th className="px-5 py-3 w-1/5">Email</th>
+                          <th className="px-5 py-3 w-1/5">Phone</th>
+                          <th className="px-5 py-3 w-1/5">Address</th>
+                          <th className="px-5 py-3 w-1/5">Assigned Date</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -99,13 +103,20 @@ const ShiftList = ({ shiftData }) => {
                                 : "bg-primary/10 hover:bg-primary/20"
                             } cursor-pointer  w-full flex justify-start`}
                           >
-                            <td className="px-5 py-2 w-1/4">{user.name}</td>
-                            <td className="px-5 py-2 w-1/4">{user.email}</td>
-                            <td className="px-5 py-2 w-1/4">
+                            <td className="px-5 py-2 w-1/5">{user.name}</td>
+                            <td className="px-5 py-2 w-1/5">{user.email}</td>
+                            <td className="px-5 py-2 w-1/5 ml-24">
                               {user.phone || "N/A"}
                             </td>
-                            <td className="px-5 py-2 w-1/4">
+                            <td className="px-5 py-2 w-1/5 ml-24">
                               {user.address || "N/A"}
+                            </td>
+                            <td className="px-5 py-2 w-1/5">
+                              {user.EmployeeShift?.createdAt
+                                ? new Date(
+                                    user.EmployeeShift.createdAt,
+                                  ).toLocaleDateString()
+                                : "N/A"}
                             </td>
                           </tr>
                         ))}
