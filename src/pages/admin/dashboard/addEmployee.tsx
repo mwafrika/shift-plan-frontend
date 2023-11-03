@@ -88,7 +88,10 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
         Style="border border-primary rounded-[5px]"
         Options={
           roles &&
-          roles.map((role) => ({
+          roles.filter(
+            (role) => role.name !== "superAdmin" && role.name !== "admin",
+          )
+          .map((role) => ({
             value: role.id,
             label: role.name,
           }))

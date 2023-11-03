@@ -8,14 +8,21 @@ import { getShiftsWithEmployees } from "../../../redux/actions/shift";
 import { useDispatch, useSelector } from "react-redux";
 import Export from "./export";
 import PdfReportGenerator from "../../../components/report";
+import { getUserProfile } from "../../../redux/actions/setting";
+
 const ShiftPage = () => {
   const [showForm, setShowForm] = React.useState(false);
   const [showExport, setShowExport] = React.useState(false);
   const { shiftsWithEmployees } = useSelector((state: any) => state.shifts);
+  const currentUser = useSelector((state) => state.setting.user);
   const dispatch = useDispatch();
   const handleClick = () => {
     setShowForm(!showForm);
   };
+
+  useEffect(() => {
+    dispatch(getUserProfile() as any);
+  }, []);
 
   const handleShowExport = () => {
     setShowExport(!showExport);
@@ -26,7 +33,10 @@ const ShiftPage = () => {
   }, []);
 
   return (
-    <Layout user={"Manager"} username={"Manager Okolongo"}>
+    <Layout
+      user={currentUser?.role?.name?.toUpperCase()}
+      username={currentUser?.name}
+    >
       <div className="flex items-center justify-end bg-background">
         <h1 className=" bg-primary text-white px-36 py-2">Week-1/October</h1>
       </div>

@@ -9,6 +9,7 @@ export default {
       white: "#ffffff",
       black: "#000000",
       red: "#c70548",
+      green: "#00a859",
       primary: "#032D7C",
       secondary: "#039BE5",
       background: "#F7F7F7",

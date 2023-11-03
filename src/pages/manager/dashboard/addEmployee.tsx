@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Input from "../../../components/input";
 import SelectInput from "../../../components/select";
-import MultiSelect from "../../../components/multiSelect";
 import Button from "../../../components/button";
 import { addUser, getUsers } from "../../../redux/actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { fetchRoles } from "../../../redux/actions/role";
 import { getDepartments } from "../../../redux/actions/department";
-import Select from "react-tailwindcss-select";
 
 interface Props {
   showForm?: boolean;
@@ -44,7 +42,7 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
     setShowForm(!showForm);
   };
 
-
+  console.log(newUser, "new user data");
 
   return (
     <form className="flex flex-col items-start" onSubmit={handleSubmit}>
@@ -57,6 +55,7 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
         value={newUser.name}
         onChange={handleChange}
       />
+
       <Input
         type="email"
         name="email"
@@ -66,6 +65,7 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
         value={newUser.email}
         onChange={handleChange}
       />
+
       <SelectInput
         label="Department"
         placeholder="Department"
@@ -80,6 +80,7 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
         }
         value={newUser.departmentId}
       />
+
       <SelectInput
         label="Roles"
         placeholder="Roles"
@@ -87,12 +88,16 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
         Style="border border-primary rounded-[5px]"
         Options={
           roles &&
-          roles.map((role) => ({
-            value: role.id,
-            label: role.name,
-          }))
+          roles
+            .filter(
+              (role) => role.name !== "superAdmin" && role.name !== "admin",
+            )
+            .map((role) => ({
+              value: role.id,
+              label: role.name,
+            }))
         }
-        value={newUser?.departmentId}
+        value={newUser.departmentId}
       />
 
       <div className="flex flex-row gap-2">

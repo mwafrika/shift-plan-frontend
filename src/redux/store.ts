@@ -7,6 +7,7 @@ import departmentReducer from "./reducers/department";
 import companyReducer from "./reducers/company";
 import updateUserProfile from "./reducers/setting";
 import shiftsReducer from "./reducers/shift";
+import Absence from "./reducers/absence";
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   companies: companyReducer,
   setting: updateUserProfile,
   shifts: shiftsReducer,
+  absences: Absence,
 });
 
 const store = configureStore({
