@@ -1,7 +1,7 @@
 import authAxios from "../utils/auth";
 
 export const getShifts = async () => {
-  const { data } = await authAxios.get("/shifts");
+  const { data } = await authAxios.get("/shifts/employees");
   return data;
 };
 

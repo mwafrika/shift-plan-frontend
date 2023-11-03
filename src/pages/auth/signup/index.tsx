@@ -8,9 +8,11 @@ import { SignupData } from "./type";
 import validators from "./validators";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../redux/actions/auth";
+import { toast } from "react-toastify";
 
 const Signup: React.FC = () => {
   const formMethods = useForm<SignupData>();
+
   const {
     handleSubmit,
     reset,
@@ -34,6 +36,7 @@ const Signup: React.FC = () => {
     dispatch(signup(data, navigate, reset) as any);
     console.log(data, "Data tat atata ta");
   };
+
 
   const name = useWatch({
     control: formMethods.control,
@@ -139,6 +142,8 @@ const Signup: React.FC = () => {
     }
   };
 
+  const isLastStep = activeStep === 1;
+
   return (
     <div className="bg-authBackground flex flex-row h-screen">
       <div className="w-[50%] flex flex-col gap-2 p-2">
@@ -160,7 +165,8 @@ const Signup: React.FC = () => {
               completeTitleColor="#ccd5e4"
             />
           </div>
-          <form onSubmit={handleSubmit(submit)} className="w-[60%] m-auto">
+
+          <div className="w-[60%] m-auto">
             {renderStepContent()}
             <div className="flex justify-between gap-8">
               {activeStep > 0 && (
@@ -170,21 +176,23 @@ const Signup: React.FC = () => {
                   width="border-primary border-[1px] text-primary w-[50%] h-[40px]"
                 />
               )}
-              {activeStep < 1 ? (
+              {isLastStep ? (
+                <Button
+                  label="Create company"
+                  onClick={() => {
+                    handleSubmit(submit)();
+                  }}
+                  width="bg-primary text-white w-[50%] h-[40px] text-white"
+                />
+              ) : (
                 <Button
                   label="Next"
                   onClick={handleNext}
                   width="bg-primary w-[100%] h-[40px] text-white"
                 />
-              ) : (
-                <Button
-                  label="Create company"
-                  isSubmit
-                  width="bg-primary text-white w-[50%] h-[40px] text-white"
-                />
               )}
             </div>
-          </form>
+          </div>
         </div>
         <div className="flex flex-row items-center justify-center mt-4">
           Already have an account ?{" "}
