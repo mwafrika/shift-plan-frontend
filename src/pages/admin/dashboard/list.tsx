@@ -23,7 +23,7 @@ const EmployeesList = ({ dataToDisplay }) => {
     dispatch(getUsers() as any);
     dispatch(fetchRoles() as any);
     dispatch(getDepartments() as any);
-  }, [dispatch]);
+  }, [showEdit, showDelete]);
 
   const handleEdit = (id) => {
     dispatch(getUser(id) as any);
@@ -47,7 +47,7 @@ const EmployeesList = ({ dataToDisplay }) => {
     itemsPerPage,
   );
 
-  console.log(userData, "userData");
+  console.log(userData[0], "userData[0].newUser");
 
   console.log(users, "All users", showDelete, "popup");
   return (
@@ -92,40 +92,41 @@ const EmployeesList = ({ dataToDisplay }) => {
         </thead>
 
         <tbody>
-          {userData?.map((emp) => (
-            <tr key={emp.id} className="bg-white">
-              <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-                <Checkbox name={emp.name} />
-              </td>
-              <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-                {emp.name}
-              </td>
-              <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-                {emp.email}
-              </td>
-              <td className="font-normal text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-                {emp?.department?.departmentName}
-              </td>
-              <td className="font-normal text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-                {emp.role ? emp.role.name : ""}
-              </td>
-              <td className="font-normal text-[14px] text-left pl-5 py-2 flex flex-row items-center">
-                <RiEditBoxFill
-                  fontSize={16}
-                  height={16}
-                  style={{ marginRight: 15, cursor: "pointer" }}
-                  className="text-secondary"
-                  onClick={() => handleEdit(emp.id)}
-                />
-                <Delete
-                  title="Delete Employee"
-                  description="Are you sure you want to delete this employee?"
-                  id={emp.id}
-                  onClick={() => handleDelete(emp.id)}
-                />
-              </td>
-            </tr>
-          ))}
+          {userData &&
+            userData?.map((emp) => (
+              <tr key={emp.id} className="bg-white">
+                <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
+                  <Checkbox name={emp.name} />
+                </td>
+                <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
+                  {emp.name}
+                </td>
+                <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
+                  {emp.email}
+                </td>
+                <td className="font-normal text-[14px] text-left pl-5 py-2 overflow-x-hidden">
+                  {emp?.department?.departmentName}
+                </td>
+                <td className="font-normal text-[14px] text-left pl-5 py-2 overflow-x-hidden">
+                  {emp.role ? emp.role.name : ""}
+                </td>
+                <td className="font-normal text-[14px] text-left pl-5 py-2 flex flex-row items-center">
+                  <RiEditBoxFill
+                    fontSize={16}
+                    height={16}
+                    style={{ marginRight: 15, cursor: "pointer" }}
+                    className="text-secondary"
+                    onClick={() => handleEdit(emp.id)}
+                  />
+                  <Delete
+                    title="Delete Employee"
+                    description="Are you sure you want to delete this employee?"
+                    id={emp.id}
+                    onClick={() => handleDelete(emp.id)}
+                  />
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <Pagination

@@ -16,6 +16,7 @@ import {
 } from "../../../redux/actions/department";
 import { getUsers } from "../../../redux/actions/users";
 import { getUserProfile } from "../../../redux/actions/setting";
+import { fetchRoles } from "../../../redux/actions/role";
 
 const DepartmentPage = () => {
   const [showForm, setShowForm] = React.useState(false);
@@ -34,7 +35,11 @@ const DepartmentPage = () => {
 
   useEffect(() => {
     dispatch(getUserProfile() as any);
-  }, []);
+    // TEST
+    dispatch(getDepartments() as any);
+    dispatch(fetchRoles() as any);
+    dispatch(getUsers() as any);
+  }, [showForm]);
 
   const handleSearchInputChange = (event) => {
     const searchInput = event.target.value;

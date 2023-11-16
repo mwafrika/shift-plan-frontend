@@ -10,7 +10,7 @@ import {
 import { fetchRoles } from "../../../redux/actions/role";
 import { getUsers } from "../../../redux/actions/users";
 
-const AddDepartmentForm = () => {
+const AddDepartmentForm = ({ showForm, setShowForm }) => {
   const dispatch = useDispatch();
   const { departments } = useSelector((state) => state.departments);
   const { users } = useSelector((state) => state.users);
@@ -21,11 +21,11 @@ const AddDepartmentForm = () => {
     departmentDescription: "",
   });
 
-  useEffect(() => {
-    dispatch(getDepartments() as any);
-    dispatch(fetchRoles() as any);
-    dispatch(getUsers() as any);
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getDepartments() as any);
+  //   dispatch(fetchRoles() as any);
+  //   dispatch(getUsers() as any);
+  // }, []);
 
   const handleChange = (e) => {
     setNewDepartment((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -36,6 +36,8 @@ const AddDepartmentForm = () => {
     dispatch(createDepartment(newDepartment) as any);
     dispatch(getDepartments() as any);
     dispatch(getUsers() as any);
+    dispatch(fetchRoles() as any);
+    setShowForm(!showForm);
   };
   const employees = users.filter((user) => user?.role?.name === "manager");
 

@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Pagination from "../../../components/pagination";
 import Checkbox from "../../../components/checkbox";
 import Button from "../../../components/button";
-// import Absences from actions
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getAbsences,
-  approveAbsence,
-  updateAbsence,
-} from "../../../redux/actions/absence";
 
 const Employees = [
   {
@@ -54,25 +47,18 @@ const Employees = [
 ];
 
 const AbsenceList = () => {
-  const dispatch = useDispatch();
-  const { absences } = useSelector((state) => state?.absences);
-
-  useEffect(() => {
-    dispatch(getAbsences() as any);
-  }, []);
-
-  console.log(absences, "EEEEEEEEEEEEEEEEE");
+  // const [selectedStatus, setSelectedStatus] = useState("pending");
   const [selectedItem, setSelectedItem] = useState(null);
   const [employees, setEmployees] = useState(Employees);
 
   const handleActionChange = (employeeId, action) => {
-    // const updatedAbsence = absences.map((emp) =>
-    //   emp.id === employeeId ? { ...emp, status: action } : emp,
-    // );
-    setSelectedItem(employeeId);
-    // dispatch(approveAbsence(employeeId, action) as any);
+    // Update the status of the selected employee
+    const updatedEmployees = employees.map((emp) =>
+      emp.id === employeeId ? { ...emp, status: action } : emp,
+    );
 
     setSelectedItem(employeeId);
+    setEmployees(updatedEmployees);
   };
   return (
     <div className="flex flex-col items-center justify-center mt-4">
@@ -109,19 +95,19 @@ const AbsenceList = () => {
         </thead>
 
         <tbody>
-          {absences?.data?.map((emp) => (
+          {employees?.map((emp) => (
             <tr key={emp.id} className="bg-white">
               <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-                <Checkbox name={emp?.user?.name} />
+                <Checkbox name={emp.employee} />
               </td>
               <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-                {emp?.user?.name}
+                {emp.employee}
               </td>
               <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-                {emp?.startDate}
+                {emp.start_date}
               </td>
               <td className="font-semibold text-[14px] text-left pl-5 py-2 overflow-x-hidden">
-                {emp.endDate}
+                {emp.end_date}
               </td>
               <td className="font-normal text-[14px] text-left text-secondary pl-5 py-2 overflow-x-hidden">
                 <a href="/">{emp.reason}</a>

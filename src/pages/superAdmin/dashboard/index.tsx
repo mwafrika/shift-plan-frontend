@@ -90,46 +90,7 @@ const SuperAdminDashboard = () => {
                 Detail
               </button>
             </div>
-            <div className="flex justify-between items-center gap-2 bg-white p-2 rounded-md">
-              <div className="border-[0.1rem] rounded-[60%] p-2">
-                <p>ABC</p>
-              </div>
-              <p>Abc group </p>
 
-              <button className="bg-secondary px-4 py-1 rounded-md text-white">
-                Detail
-              </button>
-            </div>
-            <div className="flex justify-between items-center gap-2 bg-white p-2 rounded-md">
-              <div className="border-[0.1rem] rounded-[60%] p-2">
-                <p>ABC</p>
-              </div>
-              <p>Abc group </p>
-
-              <button className="bg-secondary px-4 py-1 rounded-md text-white">
-                Detail
-              </button>
-            </div>
-            <div className="flex justify-between items-center gap-2 bg-white p-2 rounded-md">
-              <div className="border-[0.1rem] rounded-[60%] p-2">
-                <p>ABC</p>
-              </div>
-              <p>Abc group </p>
-
-              <button className="bg-secondary px-4 py-1 rounded-md text-white">
-                Detail
-              </button>
-            </div>
-            <div className="flex justify-between items-center gap-2 bg-white p-2 rounded-md">
-              <div className="border-[0.1rem] rounded-[60%] p-2">
-                <p>ABC</p>
-              </div>
-              <p>Abc group </p>
-
-              <button className="bg-secondary px-4 py-1 rounded-md text-white">
-                Detail
-              </button>
-            </div>
             <div className="flex justify-between items-center gap-2 bg-white p-2 rounded-md">
               <div className="border-[0.1rem] rounded-[60%] p-2">
                 <p>ABC</p>

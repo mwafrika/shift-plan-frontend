@@ -15,7 +15,6 @@ import { getDepartments } from "../../../redux/actions/department";
 import { getUserProfile } from "../../../redux/actions/setting";
 
 const AdminDashboard = () => {
-  // use the Props
   const [showForm, setShowForm] = React.useState(false);
   const dispatch = useDispatch();
   const { users, user, filteredUsers } = useSelector((state) => state.users);
@@ -24,14 +23,34 @@ const AdminDashboard = () => {
 
   const [searchInput, setSearchInput] = React.useState("");
 
+  // useEffect(() => {
+  //   dispatch(getUsers() as any);
+  //   dispatch(getDepartments() as any);
+  // }, [dispatch]); // Only dispatch when component mounts
+
+  // useEffect(() => {
+  //   dispatch(getUserProfile() as any);
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(getUsers() as any);
+  //   dispatch(getDepartments() as any);
+  // }, [filteredUsers, showForm]); // Only dispatch when filteredUsers or showForm changes
+
   useEffect(() => {
     dispatch(getUsers() as any);
     dispatch(getDepartments() as any);
-  }, [searchInput]);
+    dispatch(getUserProfile() as any);
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getUserProfile() as any);
-  }, []);
+    dispatch(getUsers() as any);
+    dispatch(getDepartments() as any);
+  }, [filteredUsers, showForm, dispatch]);
+
+  useEffect(() => {
+    dispatch(searchUsers(searchInput));
+  }, [searchInput, dispatch]);
 
   const handleSearchInputChange = (event) => {
     const searchInput = event.target.value;

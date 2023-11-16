@@ -45,21 +45,23 @@ export const createDepartment = (departmentData) => (dispatch) => {
     .catch((error) => {
       dispatch({
         type: CREATE_DEPARTMENT_FAILURE,
-        payload: error.response.data.message || error.response.data.error,
+        payload: error?.response?.data?.message || error?.response?.data?.error,
       });
-      toast.error(error.response.data.message || error.response.data.error);
+      toast.error(
+        error?.response?.data?.message || error?.response?.data?.error,
+      );
     });
 };
 
 export const getDepartments = () => (dispatch) => {
-  dispatch({
-    type: FETCH_DEPARTMENTS_START,
-  });
-
   userApi
     .getDepartments()
     .then((response) => {
       const { data } = response.data;
+
+      dispatch({
+        type: FETCH_DEPARTMENTS_START,
+      });
 
       if (response.status === 200) {
         dispatch({

@@ -24,10 +24,10 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
     roleId: null,
   });
 
-  useEffect(() => {
-    dispatch(fetchRoles() as any);
-    dispatch(getDepartments() as any);
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchRoles() as any);
+  //   dispatch(getDepartments() as any);
+  // }, [dispatch]);
 
   console.log(departments, "Departents");
   const handleChange = (e) => {
@@ -37,10 +37,18 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addUser(newUser) as any);
+    setShowForm(!showForm);
+    // if (newUser) {
+    //   dispatch(getUsers() as any);
+    //   dispatch(getDepartments() as any);
+    //   setShowForm(!showForm);
+    // }
+  };
+
+  useEffect(() => {
     dispatch(getUsers() as any);
     dispatch(getDepartments() as any);
-    setShowForm(!showForm);
-  };
+  }, [!showForm]);
 
   console.log(newUser, "new user data");
 
@@ -79,6 +87,7 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
           }))
         }
         value={newUser.departmentId}
+        onChange={handleChange}
       />
 
       <SelectInput
@@ -88,15 +97,17 @@ const AddEmployeeForm = ({ showForm, setShowForm }: Props) => {
         Style="border border-primary rounded-[5px]"
         Options={
           roles &&
-          roles.filter(
-            (role) => role.name !== "superAdmin" && role.name !== "admin",
-          )
-          .map((role) => ({
-            value: role.id,
-            label: role.name,
-          }))
+          roles
+            .filter(
+              (role) => role.name !== "superAdmin" && role.name !== "admin",
+            )
+            .map((role) => ({
+              value: role.id,
+              label: role.name,
+            }))
         }
-        value={newUser.departmentId}
+        value={newUser?.roleId}
+        onChange={handleChange}
       />
 
       <div className="flex flex-row gap-2">

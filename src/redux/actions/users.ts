@@ -31,11 +31,12 @@ export const addUser = (userData) => (dispatch) => {
       const { data } = response.data;
 
       if (response.status === 201) {
+        console.log(response.status, "user actions", data);
         dispatch({
           type: ADD_USER_SUCCESS,
           payload: data,
         });
-        toast.success(response.data.message);
+        toast.success(data.message);
       }
     })
     .catch((error) => {
